@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark" data-font="md">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAKO CREATOR STUDIO 🔥</title>
+<style>
+/* ================= BASE ================= */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--accent:#ff6a00;--accent2:#ff2d55;--ok:#22c55e;--danger:#ef4444;--radius:16px;--sidebar-w:252px}
+html[data-theme="dark"]{--bg:#070b14;--bg2:#0c1220;--panel:#101828;--panel2:#182236;--field:#0b111e;--text:#e9edf6;--muted:#8d96ac;--border:rgba(255,255,255,.09);--shadow:0 12px 30px rgba(0,0,0,.45)}
+html[data-theme="light"]{--bg:#eef1f7;--bg2:#e3e8f2;--panel:#ffffff;--panel2:#f2f4fb;--field:#ffffff;--text:#141a2e;--muted:#5c6580;--border:rgba(20,30,60,.12);--shadow:0 8px 22px rgba(30,41,59,.10)}
+html[data-font="sm"]{font-size:14px}
+html[data-font="md"]{font-size:15.5px}
+html[data-font="lg"]{font-size:17.5px}
+html{scroll-behavior:smooth}
+body{font-family:"Segoe UI",Tahoma,system-ui,-apple-system,Arial,sans-serif;color:var(--text);min-height:100vh;
+background:radial-gradient(1100px 500px at 85% -10%,rgba(255,106,0,.13),transparent 60%),radial-gradient(900px 420px at 8% 110%,rgba(255,45,85,.10),transparent 55%),var(--bg)}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit;font-size:1rem}
+.hidden{display:none!important}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-thumb{background:var(--panel2);border-radius:10px}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ================= LAYOUT ================= */
+#app{display:flex;min-height:100vh}
+#sidebar{position:fixed;top:0;bottom:0;inset-inline-start:0;width:var(--sidebar-w);background:var(--bg2);border-inline-end:1px solid var(--border);display:flex;flex-direction:column;z-index:60;transition:transform .3s ease}
+main{flex:1;margin-inline-start:var(--sidebar-w);min-width:0;display:flex;flex-direction:column}
+.side-logo{display:flex;align-items:center;gap:10px;padding:18px 16px;border-bottom:1px solid var(--border)}
+.logo-badge{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.3rem;color:#fff;box-shadow:0 6px 18px rgba(255,80,20,.35);flex-shrink:0}
+.logo-txt{font-weight:900;font-size:1.05rem;letter-spacing:.5px;line-height:1.15}
+.logo-txt span{display:block;font-size:.62rem;color:var(--muted);font-weight:600;letter-spacing:1.5px}
+#sidebar nav{flex:1;padding:12px 10px;display:flex;flex-direction:column;gap:4px;overflow-y:auto}
+.nav-item{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:12px;background:transparent;border:1px solid transparent;color:var(--text);font-size:.95rem;font-weight:600;text-align:start;transition:.2s}
+.nav-item:hover{background:var(--panel);border-color:var(--border)}
+.nav-item.active{background:linear-gradient(135deg,rgba(255,106,0,.18),rgba(255,45,85,.14));border-color:rgba(255,106,0,.4);color:var(--text)}
+.nav-item .ni{width:24px;text-align:center}
+.side-foot{padding:14px 16px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:center;color:var(--muted);font-size:.78rem}
+#backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:55;opacity:0;pointer-events:none;transition:.25s}
+#backdrop.show{opacity:1;pointer-events:auto}
+
+/* ================= TOPBAR ================= */
+#topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:12px;padding:12px 20px;background:var(--bg);border-bottom:1px solid var(--border)}
+#menuBtn{display:none;background:var(--panel);border:1px solid var(--border);color:var(--text);border-radius:10px;width:40px;height:40px;font-size:1.15rem}
+.tb-title{font-weight:800;font-size:1.05rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-actions{margin-inline-start:auto;display:flex;align-items:center;gap:8px}
+.badge{display:inline-flex;align-items:center;gap:4px;background:var(--panel2);border:1px solid var(--border);padding:4px 10px;border-radius:999px;font-size:.72rem;font-weight:700;color:var(--muted)}
+.badge-pro{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none}
+.icon-btn{background:var(--panel);border:1px solid var(--border);color:var(--text);border-radius:10px;width:38px;height:38px;font-size:1rem;transition:.2s}
+.icon-btn:hover{border-color:var(--accent)}
+
+/* ================= PAGES ================= */
+#pages{padding:22px;max-width:1080px;width:100%;margin-inline:auto;flex:1}
+.page{display:none}
+.page.active{display:block;animation:fadeUp .35s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.page h2.sec{margin:26px 0 14px;font-size:1.15rem}
+
+/* ================= CARDS ================= */
+.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px}
+.fcard{cursor:pointer;text-align:center;padding:22px 14px;transition:.25s;position:relative;overflow:hidden}
+.fcard:hover{transform:translateY(-4px);border-color:rgba(255,106,0,.5);box-shadow:0 14px 30px rgba(255,80,20,.15)}
+.fcard .f-ico{font-size:1.9rem;margin-bottom:8px}
+.fcard h3{font-size:.98rem;margin-bottom:5px}
+.fcard p{font-size:.78rem;color:var(--muted);line-height:1.5}
+
+/* ================= HERO ================= */
+.hero{text-align:center;padding:52px 24px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-40%;background:radial-gradient(circle at 50% 20%,rgba(255,106,0,.14),transparent 55%);pointer-events:none}
+.hero-logo{font-size:2.6rem;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:6px;letter-spacing:1px}
+.hero h1{font-size:clamp(1.5rem,4.5vw,2.4rem);font-weight:900;margin-bottom:8px}
+.hero p.sub{color:var(--muted);font-size:1.05rem;margin-bottom:22px}
+.hero-stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+
+/* ================= BUTTONS ================= */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:12px;padding:10px 18px;font-weight:700;font-size:.92rem;border:1px solid var(--border);background:var(--panel2);color:var(--text);transition:.2s;text-decoration:none;white-space:nowrap}
+.btn:hover{transform:translateY(-1px);border-color:rgba(255,106,0,.5)}
+.btn:active{transform:translateY(0)}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;box-shadow:0 8px 20px rgba(255,80,20,.3)}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-danger{background:var(--danger);color:#fff;border:none}
+.btn-ghost{background:transparent}
+.btn-lg{padding:14px 28px;font-size:1.05rem;border-radius:14px}
+.btn-sm{padding:6px 12px;font-size:.8rem;border-radius:9px}
+.btn.copied{background:var(--ok);color:#fff;border-color:transparent}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.spread{justify-content:space-between}
+
+/* ================= FORMS ================= */
+.input{width:100%;background:var(--field);border:1px solid var(--border);border-radius:12px;padding:11px 13px;color:var(--text);outline:none;transition:.2s}
+.input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(255,106,0,.15)}
+.input:disabled{opacity:.45;cursor:not-allowed}
+textarea.input{resize:vertical;min-height:70px;line-height:1.7}
+select.input{appearance:none;cursor:pointer}
+.lbl{display:block;font-size:.85rem;font-weight:700;color:var(--muted);margin:0 0 6px 2px}
+.field{margin-bottom:14px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:16px}
+
+/* ================= RESULTS ================= */
+.results-head{margin:24px 0 16px}
+.rcard{margin-bottom:16px;animation:fadeUp .4s ease both}
+.rc-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.rc-head h3{font-size:1.02rem;font-weight:800}
+.rc-head .btn{margin-inline-start:auto}
+.title-row{display:flex;gap:10px;align-items:center;padding:11px 13px;border:1px solid var(--border);border-radius:12px;background:var(--panel2);margin-bottom:8px}
+.title-row .num{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;flex-shrink:0}
+.title-row .title-txt{flex:1;line-height:1.6;font-size:.94rem}
+.s-block{border:1px solid var(--border);border-radius:12px;background:var(--panel2);padding:14px;margin-bottom:10px}
+.s-label{display:inline-block;padding:3px 12px;border-radius:999px;font-size:.7rem;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:.5px}
+.lb-hook{background:linear-gradient(135deg,#ff512f,#dd2476)}
+.lb-intro{background:linear-gradient(135deg,#11998e,#38ef7d)}
+.lb-main{background:linear-gradient(135deg,#396afc,#2948ff)}
+.lb-end{background:linear-gradient(135deg,#f7971e,#ffd200);color:#333}
+.lb-cta{background:linear-gradient(135deg,#8e2de2,#4a00e0)}
+.s-block p{line-height:1.8;font-size:.93rem}
+.s-item{padding:8px 0;border-bottom:1px dashed var(--border)}
+.s-item:last-child{border-bottom:none}
+.s-sub{font-weight:800;font-size:.88rem;color:var(--accent);margin-bottom:3px}
+.prewrap{white-space:pre-wrap;word-break:break-word;line-height:1.9;font-size:.93rem;font-family:inherit}
+.tags-wrap{display:flex;flex-wrap:wrap;gap:8px}
+.tag{background:var(--panel2);border:1px solid var(--border);padding:5px 12px;border-radius:999px;font-size:.83rem;font-weight:600}
+.thumb-item{border:1px solid var(--border);border-radius:12px;background:var(--panel2);padding:14px;margin-bottom:10px}
+.thumb-head{display:flex;align-items:center;font-weight:800;font-size:.9rem;margin-bottom:10px}
+.thumb-head .btn{margin-inline-start:auto}
+.thumb-item dl div{display:flex;gap:8px;padding:4px 0;font-size:.87rem;line-height:1.6}
+.thumb-item dt{min-width:118px;color:var(--muted);font-weight:700;flex-shrink:0}
+.thumb-item dd{flex:1}
+
+/* ================= IDEAS ================= */
+.chips-row{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--panel);border:1px solid var(--border);color:var(--text);border-radius:999px;padding:8px 15px;font-size:.85rem;font-weight:600;transition:.2s;text-align:start}
+.chip:hover{border-color:var(--accent);transform:translateY(-2px)}
+.ideas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.idea-card{display:flex;flex-direction:column;gap:10px}
+.idea-card p{flex:1;line-height:1.7;font-size:.93rem}
+.gen-idea{margin-top:16px;border:1px dashed rgba(255,106,0,.5);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px;background:var(--panel2);animation:fadeUp .3s both}
+.gen-idea-txt{font-size:1.05rem;font-weight:700;line-height:1.7}
+
+/* ================= SAVED ================= */
+.proj{margin-bottom:12px}
+.proj.pinned{border-color:rgba(255,106,0,.55)}
+.proj-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.proj-name{font-weight:800}
+.proj-idea{color:var(--muted);font-size:.88rem;margin:7px 0;line-height:1.6}
+.proj-meta{font-size:.76rem;color:var(--muted);margin-bottom:12px}
+.proj-actions{display:flex;gap:8px;flex-wrap:wrap}
+.empty{text-align:center;padding:46px 20px;color:var(--muted)}
+.empty-ico{font-size:2.6rem;margin-bottom:10px}
+
+/* ================= LOADING ================= */
+#loadingOverlay{position:fixed;inset:0;background:rgba(5,8,15,.8);z-index:200;display:flex;align-items:center;justify-content:center}
+.load-card{background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:36px 42px;text-align:center;max-width:88vw;animation:fadeUp .3s both}
+.spinner{width:56px;height:56px;border-radius:50%;border:4px solid var(--panel2);border-top-color:var(--accent);border-inline-end-color:var(--accent2);animation:spin .8s linear infinite;margin:0 auto 18px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.load-logo{font-weight:900;margin-bottom:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+#loadText{color:var(--muted);font-size:.9rem;min-height:22px}
+.load-track{height:7px;background:var(--panel2);border-radius:99px;margin-top:18px;overflow:hidden}
+#loadBar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;transition:width .45s ease}
+
+/* ================= TOAST ================= */
+#toastWrap{position:fixed;bottom:20px;inset-inline-end:20px;z-index:300;display:flex;flex-direction:column;gap:8px;max-width:min(340px,90vw)}
+.toast{background:var(--panel);border:1px solid var(--border);border-inline-start:4px solid var(--ok);border-radius:12px;padding:12px 16px;font-size:.88rem;font-weight:600;box-shadow:var(--shadow);animation:toastIn .3s ease both}
+.toast.err{border-inline-start-color:var(--danger)}
+.toast.out{opacity:0;transform:translateY(8px);transition:.35s}
+@keyframes toastIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ================= MODAL ================= */
+#modalOverlay{position:fixed;inset:0;background:rgba(5,8,15,.7);z-index:250;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal-card{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:26px;width:100%;max-width:430px;animation:fadeUp .25s both}
+.modal-card h3{margin-bottom:14px;font-size:1.05rem}
+#modalBody{margin-bottom:20px;line-height:1.7;font-size:.93rem}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end}
+.settings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.note{font-size:.8rem;color:var(--muted);line-height:1.7;margin-top:12px;padding:10px 13px;background:var(--panel2);border-radius:10px;border:1px dashed var(--border)}
+
+
+/* ================= BAKO ASSISTANT LITE ================= */
+.assistant-card{max-width:900px;margin:auto}
+.assistant-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.assistant-chat{min-height:260px;max-height:52vh;overflow:auto;padding:12px;background:var(--field);border:1px solid var(--border);border-radius:14px}
+.assistant-msg{max-width:88%;padding:10px 13px;border-radius:13px;margin:7px 0;line-height:1.7;font-size:.9rem;white-space:pre-wrap;word-break:break-word}
+.assistant-msg.bot{background:var(--panel2);border:1px solid var(--border);margin-inline-end:auto}
+.assistant-msg.user{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;margin-inline-start:auto}
+.assistant-compose{margin-top:12px}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:920px){
+ #sidebar{transform:translateX(-108%)}
+ [dir="rtl"] #sidebar{transform:translateX(108%)}
+ #sidebar.open{transform:translateX(0)!important;box-shadow:0 0 60px rgba(0,0,0,.5)}
+ main{margin-inline-start:0}
+ #menuBtn{display:inline-flex;align-items:center;justify-content:center}
+ #pages{padding:14px}
+ .hero{padding:36px 16px}
+ .thumb-item dl div{flex-direction:column;gap:2px}
+ .thumb-item dt{min-width:0}
+ #toastWrap{inset-inline-end:50%;transform:translateX(50%)}
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+ <!-- ============ SIDEBAR ============ -->
+ <aside id="sidebar">
+  <div class="side-logo">
+   <div class="logo-badge">B</div>
+   <div class="logo-txt">BAKO 🔥<span>CREATOR STUDIO</span></div>
+  </div>
+  <nav>
+   <button class="nav-item active" data-page="home"><span class="ni">🏠</span><span data-i18n="nav_home"></span></button>
+   <button class="nav-item" data-page="create"><span class="ni">✍️</span><span data-i18n="nav_create"></span></button>
+   <button class="nav-item" data-page="ideas"><span class="ni">🎬</span><span data-i18n="nav_ideas"></span></button>
+   <button class="nav-item" data-page="thumb"><span class="ni">🖼️</span><span data-i18n="nav_thumb"></span></button>
+   <button class="nav-item" data-page="voice"><span class="ni">🎙️</span><span data-i18n="nav_voice"></span></button>
+<button class="nav-item" data-page="assistant"><span class="ni">🤖</span><span data-i18n="nav_assistant"></span></button>
+   <button class="nav-item" data-page="saved"><span class="ni">📚</span><span data-i18n="nav_saved"></span></button>
+   <button class="nav-item" data-page="settings"><span class="ni">⚙️</span><span data-i18n="nav_settings"></span></button>
+  </nav>
+  <div class="side-foot"><span class="badge">v1.1 LITE</span><span data-i18n="offline_badge"></span></div>
+ </aside>
+ <div id="backdrop"></div>
+
+ <main>
+  <!-- ============ TOPBAR ============ -->
+  <header id="topbar">
+   <button id="menuBtn" aria-label="menu">☰</button>
+   <div class="tb-title" id="pageTitle"></div>
+   <div class="tb-actions">
+    <span class="badge badge-pro">🔥 PRO</span>
+    <button class="icon-btn" id="themeQuick" title="theme">☀️</button>
+   </div>
+  </header>
+
+  <div id="pages">
+   <!-- ============ HOME ============ -->
+   <section class="page active" id="page-home">
+    <div class="card hero">
+     <div class="hero-logo">BAKO 🔥</div>
+     <h1>BAKO CREATOR STUDIO</h1>
+     <p class="sub" data-i18n="home_tagline"></p>
+     <button class="btn btn-primary btn-lg" id="homeCta" data-i18n="home_cta"></button>
+     <div class="hero-stats">
+      <span class="badge" data-i18n="stat1"></span>
+      <span class="badge" data-i18n="stat2"></span>
+      <span class="badge" data-i18n="stat3"></span>
+     </div>
+    </div>
+    <h2 class="sec" data-i18n="home_tools"></h2>
+    <div class="fgrid">
+     <div class="card fcard" data-nav="create"><div class="f-ico">🎬</div><h3 data-i18n="f_title_t"></h3><p data-i18n="f_title_d"></p></div>
+     <div class="card fcard" data-nav="create"><div class="f-ico">📝</div><h3 data-i18n="f_script_t"></h3><p data-i18n="f_script_d"></p></div>
+     <div class="card fcard" data-nav="create"><div class="f-ico">📄</div><h3 data-i18n="f_desc_t"></h3><p data-i18n="f_desc_d"></p></div>
+     <div class="card fcard" data-nav="create"><div class="f-ico">#️⃣</div><h3 data-i18n="f_hash_t"></h3><p data-i18n="f_hash_d"></p></div>
+     <div class="card fcard" data-nav="thumb"><div class="f-ico">🖼️</div><h3 data-i18n="f_thumb_t"></h3><p data-i18n="f_thumb_d"></p></div>
+     <div class="card fcard" data-nav="voice"><div class="f-ico">🎙️</div><h3 data-i18n="f_voice_t"></h3><p data-i18n="f_voice_d"></p></div>
+    </div>
+    <h2 class="sec" data-i18n="home_trend"></h2>
+    <div class="chips-row" id="homeTrend"></div>
+   </section>
+
+   <!-- ============ CREATE ============ -->
+   <section class="page" id="page-create">
+    <div class="card">
+     <h2 style="margin-bottom:16px" data-i18n="create_title"></h2>
+     <div class="field">
+      <label class="lbl" data-i18n="idea_label"></label>
+      <textarea id="ideaInput" class="input" rows="4"></textarea>
+     </div>
+     <div class="form-grid">
+      <div><label class="lbl" data-i18n="platform_label"></label>
+       <select id="selPlatform" class="input">
+        <option value="youtube">YouTube</option><option value="yshorts">YouTube Shorts</option>
+        <option value="tiktok">TikTok</option><option value="reels">Instagram Reels</option><option value="facebook">Facebook</option>
+       </select></div>
+      <div><label class="lbl" data-i18n="type_label"></label>
+       <select id="selType" class="input">
+        <option value="gaming" data-i18n="type_gaming"></option><option value="technology" data-i18n="type_technology"></option>
+        <option value="tutorial" data-i18n="type_tutorial"></option><option value="entertainment" data-i18n="type_entertainment"></option>
+        <option value="education" data-i18n="type_education"></option><option value="news" data-i18n="type_news"></option>
+        <option value="other" data-i18n="type_other"></option>
+       </select></div>
+      <div><label class="lbl" data-i18n="clang_label"></label>
+       <select id="selLang" class="input">
+        <option value="ar">العربية</option><option value="en">English</option><option value="fr">Français</option>
+       </select></div>
+      <div><label class="lbl" data-i18n="tone_label"></label>
+       <select id="selTone" class="input">
+        <option value="professional" data-i18n="tone_professional"></option><option value="energetic" data-i18n="tone_energetic"></option>
+        <option value="short" data-i18n="tone_short"></option><option value="funny" data-i18n="tone_funny"></option>
+        <option value="formal" data-i18n="tone_formal"></option>
+       </select></div>
+      <div><label class="lbl" data-i18n="len_label"></label>
+       <select id="selLen" class="input">
+        <option value="short" data-i18n="len_short"></option><option value="medium" data-i18n="len_medium" selected></option><option value="long" data-i18n="len_long"></option>
+       </select></div>
+     </div>
+     <div class="row spread" style="margin-top:18px">
+      <button class="btn btn-ghost" id="btnRandomIdea" data-i18n="rnd_idea"></button>
+      <button class="btn btn-primary btn-lg" id="generateBtn" data-i18n="gen_btn"></button>
+     </div>
+    </div>
+
+    <div id="resultsArea" class="hidden">
+     <div class="row spread results-head">
+      <h2 data-i18n="results_title"></h2>
+      <div class="row">
+       <button class="btn btn-sm" id="btnRegen" data-i18n="regen"></button>
+       <button class="btn btn-sm" id="btnSaveProject" data-i18n="save_proj"></button>
+       <button class="btn btn-sm" id="btnExport" data-i18n="export_txt"></button>
+       <button class="btn btn-sm" id="btnCopyAll" data-i18n="copy_all"></button>
+      </div>
+     </div>
+     <div id="resultsGrid"></div>
+    </div>
+   </section>
+
+   <!-- ============ IDEAS ============ -->
+   <section class="page" id="page-ideas">
+    <div class="card">
+     <h2 data-i18n="ideas_title"></h2>
+     <p style="color:var(--muted);font-size:.88rem;margin:6px 0 16px" data-i18n="ideas_sub"></p>
+     <div class="row">
+      <select id="ideaType" class="input" style="max-width:210px">
+       <option value="gaming" data-i18n="type_gaming"></option><option value="technology" data-i18n="type_technology"></option>
+       <option value="tutorial" data-i18n="type_tutorial"></option><option value="entertainment" data-i18n="type_entertainment"></option>
+       <option value="education" data-i18n="type_education"></option><option value="news" data-i18n="type_news"></option>
+       <option value="other" data-i18n="type_other"></option>
+      </select>
+      <button class="btn btn-primary" id="btnGenIdea" data-i18n="gen_idea"></button>
+     </div>
+     <div id="ideaOutput" class="hidden"></div>
+    </div>
+    <h2 class="sec" data-i18n="home_trend"></h2>
+    <div class="ideas-grid" id="trendList"></div>
+   </section>
+
+   <!-- ============ THUMBNAIL ============ -->
+   <section class="page" id="page-thumb">
+    <div class="card">
+     <h2 data-i18n="thumb_title"></h2>
+     <p style="color:var(--muted);font-size:.88rem;margin:6px 0 14px" data-i18n="thumb_sub"></p>
+     <textarea id="thumbIdea" class="input" rows="2" data-i18n-ph="thumb_ph"></textarea>
+     <div class="row" style="margin-top:12px"><button class="btn btn-primary" id="btnGenThumb" data-i18n="gen_thumb"></button></div>
+    </div>
+    <div id="thumbOutput" style="margin-top:16px"></div>
+   </section>
+
+   <!-- ============ VOICE ============ -->
+   <section class="page" id="page-voice">
+    <div class="card">
+     <h2 data-i18n="voice_title"></h2>
+     <p style="color:var(--muted);font-size:.88rem;margin:6px 0 14px" data-i18n="voice_sub"></p>
+     <textarea id="voiceIdea" class="input" rows="2" data-i18n-ph="thumb_ph"></textarea>
+     <div class="row" style="margin-top:12px"><button class="btn btn-primary" id="btnGenVoice" data-i18n="gen_voice"></button></div>
+    </div>
+    <div id="voiceOutput" style="margin-top:16px"></div>
+   </section>
+
+   <!-- ============ SAVED ============ -->
+   <section class="page" id="page-saved">
+    <h2 class="sec" style="margin-top:0" data-i18n="saved_title"></h2>
+    <div id="savedList"></div>
+   </section>
+
+   <!-- ============ SETTINGS ============ -->
+   <section class="page" id="page-settings">
+    <div class="card" style="margin-bottom:14px">
+     <h2 style="margin-bottom:16px" data-i18n="s_appearance"></h2>
+     <div class="settings-grid">
+      <div><label class="lbl" data-i18n="s_theme"></label>
+       <select id="setTheme" class="input"><option value="dark" data-i18n="s_dark"></option><option value="light" data-i18n="s_light"></option></select></div>
+      <div><label class="lbl" data-i18n="s_uilang"></label>
+       <select id="setUiLang" class="input"><option value="ar">العربية</option><option value="en">English</option></select></div>
+      <div><label class="lbl" data-i18n="s_font"></label>
+       <select id="setFont" class="input"><option value="sm" data-i18n="s_fs_sm"></option><option value="md" data-i18n="s_fs_md"></option><option value="lg" data-i18n="s_fs_lg"></option></select></div>
+     </div>
+    </div>
+    <div class="card" style="margin-bottom:14px">
+     <h2 style="margin-bottom:16px" data-i18n="s_ai"></h2>
+     <div class="settings-grid">
+      <div><label class="lbl" data-i18n="s_provider"></label>
+       <select id="setProvider" class="input"><option value="none" data-i18n="s_none"></option><option value="openai">OpenAI</option><option value="custom">Custom API</option></select></div>
+      <div><label class="lbl" data-i18n="s_apiurl"></label><input id="setApiUrl" class="input" placeholder="https://api.example.com/v1/chat"></div>
+      <div><label class="lbl" data-i18n="s_apikey"></label><input id="setApiKey" class="input" type="password" placeholder="••••••••" autocomplete="off"></div>
+      <div><label class="lbl" data-i18n="s_model"></label><input id="setModel" class="input" placeholder="gpt-4o-mini"></div>
+     </div>
+     <div class="note" data-i18n="s_api_note"></div>
+    </div>
+    <div class="row">
+     <button class="btn btn-primary btn-lg" id="btnSaveSettings" data-i18n="s_save"></button>
+     <button class="btn btn-danger" id="btnResetSettings" data-i18n="s_reset"></button>
+    </div>
+   </section>
+  </div>
+ </main>
+</div>
+
+<!-- LOADING -->
+<div id="loadingOverlay" class="hidden">
+ <div class="load-card">
+  <div class="spinner"></div>
+  <div class="load-logo">🅱️ BAKO AI</div>
+  <div id="loadText"></div>
+  <div class="load-track"><div id="loadBar"></div></div>
+ </div>
+</div>
+
+<!-- MODAL -->
+<div id="modalOverlay" class="hidden">
+ <div class="modal-card">
+  <h3 id="modalTitle"></h3>
+  <div id="modalBody"></div>
+  <div class="modal-actions">
+   <button id="modalCancel" class="btn"></button>
+   <button id="modalConfirm" class="btn btn-primary"></button>
+  </div>
+ </div>
+</div>
+
+<div id="toastWrap"></div>
+
+<script>
+'use strict';
+/* ================= UTILITIES ================= */
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const YEAR=2026;
+const uid=()=>Date.now().toString(36)+Math.floor(Math.random()*1e6).toString(36);
+const esc=s=>String(s===null||s===undefined?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const shuffle=a=>{const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const tmp=b[i];b[i]=b[j];b[j]=tmp;}return b;};
+const stripEmoji=s=>String(s).replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}\u{2190}-\u{21FF}]/gu,'').replace(/\s+/g,' ').trim();
+const fill=(tpl,v)=>String(tpl).replace(/\{(\w+)\}/g,(m,k)=>(v[k]!==undefined?v[k]:m));
+function loadJSON(k,d){try{const x=localStorage.getItem(k);return x?Object.assign({},d,JSON.parse(x)):Object.assign({},d);}catch(e){return Object.assign({},d);}}
+function saveJSON(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+function loadArr(k){try{const x=localStorage.getItem(k);const a=x?JSON.parse(x):[];return Array.isArray(a)?a:[];}catch(e){return[];}}
+function saveArr(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+const setVal=(sel,v)=>{const el=$(sel);if(el&&v!==undefined)el.value=v;};
+
+/* ================= I18N ================= */
+const I18N={
+ar:{
+ nav_home:'الرئيسية',nav_create:'إنشاء محتوى',nav_ideas:'أفكار فيديو',nav_thumb:'Thumbnail',nav_voice:'نص صوتي',nav_assistant:'مساعد BAKO',nav_saved:'المحفوظات',nav_settings:'الإعدادات',offline_badge:'يعمل بدون إنترنت',
+ home_tagline:'حوّل فكرة بسيطة إلى محتوى احترافي',assistant_title:'🤖 مساعد BAKO الذكي',assistant_sub:'اسأل عن فكرة فيديو، عنوان، Hook، Thumbnail أو تحسين محتواك.',assistant_clear:'🗑️ مسح',assistant_welcome:'مرحبًا! أنا مساعد BAKO. اكتب فكرتك أو اسألني كيف تجعل فيديوك أقوى.',assistant_ph:'مثال: أعطني 5 Hooks قوية لفيديو عن ألعاب الأجهزة الضعيفة...',assistant_send:'إرسال 🚀',assistant_offline:'يعمل محليًا بدون API',home_cta:'🚀 ابدأ إنشاء المحتوى',home_tools:'🧰 أدوات الاستوديو',home_trend:'🔥 أفكار رائجة',
+ stat1:'8+ أدوات ذكية',stat2:'3 لغات للمحتوى',stat3:'يعمل بدون إنترنت',
+ f_title_t:'🎬 عنوان',f_title_d:'عناوين جذابة جاهزة للنشر',f_script_t:'📝 سكربت',f_script_d:'سكربت كامل من HOOK إلى CTA',f_desc_t:'📄 وصف',f_desc_d:'وصف احترافي مع فصول الفيديو',f_hash_t:'#️⃣ Hashtags',f_hash_d:'هاشتاغات ترند مناسبة لمنصتك',f_thumb_t:'🖼️ Thumbnail',f_thumb_d:'أفكار صور مصغرة تلفت الانتباه',f_voice_t:'🎙️ Voice Script',f_voice_d:'نص جاهز للتعليق الصوتي',
+ create_title:'✍️ إنشاء محتوى جديد',idea_label:'فكرة الفيديو',idea_ph:'اكتب فكرة الفيديو هنا...\nمثال: أفضل 10 ألعاب للأجهزة الضعيفة',platform_label:'المنصة',type_label:'نوع المحتوى',clang_label:'لغة المحتوى',tone_label:'نبرة المحتوى',len_label:'طول السكربت',rnd_idea:'🎲 فكرة عشوائية',gen_btn:'🔥 إنشاء المحتوى',
+ results_title:'📊 النتائج',regen:'🔄 إعادة الإنشاء',save_proj:'💾 حفظ المشروع',export_txt:'📄 تصدير TXT',copy_all:'📋 نسخ الكل',copy:'📋 نسخ',copied:'✅ تم النسخ',
+ c_titles:'🔥 العناوين المقترحة',c_script:'📝 السكربت',c_desc:'📄 وصف الفيديو',c_hash:'#️⃣ الهاشتاغات',c_thumb:'🖼️ أفكار Thumbnail',c_voice:'🎙️ نص التعليق الصوتي',c_keys:'🔎 الكلمات المفتاحية (SEO)',
+ th_el:'العناصر',th_col:'الألوان المقترحة',th_txt:'النص الكبير',th_char:'مكان الشخصية',th_bg:'الخلفية',th_comp:'التكوين',
+ type_gaming:'Gaming',type_technology:'Technology',type_tutorial:'Tutorial',type_entertainment:'Entertainment',type_education:'Education',type_news:'News',type_other:'Other',
+ tone_professional:'احترافية',tone_energetic:'حماسية',tone_short:'مختصرة',tone_funny:'مضحكة',tone_formal:'رسمية',
+ len_short:'قصير',len_medium:'متوسط',len_long:'طويل',
+ ideas_title:'🎬 أفكار فيديو',ideas_sub:'ولّد أفكارًا عشوائية حسب نوع المحتوى أو تصفح الأفكار الرائجة',gen_idea:'🎲 توليد فكرة',use_idea:'✍️ استخدم الفكرة',
+ thumb_title:'🖼️ أفكار الصورة المصغرة',thumb_sub:'اكتب فكرة الفيديو واحصل على 5 أفكار Thumbnail احترافية',thumb_ph:'اكتب فكرة الفيديو هنا...',gen_thumb:'🖼️ توليد الأفكار',
+ voice_title:'🎙️ نص التعليق الصوتي',voice_sub:'اكتب فكرة الفيديو واحصل على نص جاهز لبرامج تحويل النص إلى صوت',gen_voice:'🎙️ توليد النص',
+ saved_title:'📚 المحفوظات',no_saved:'لا توجد مشاريع محفوظة بعد. أنشئ محتوى ثم اضغط 💾 حفظ المشروع',open_p:'فتح',del_p:'حذف',
+ settings_title:'⚙️ الإعدادات',s_appearance:'🎨 المظهر',s_theme:'الوضع',s_dark:'Dark Mode',s_light:'Light Mode',s_uilang:'لغة الواجهة',s_font:'حجم الخط',s_fs_sm:'صغير',s_fs_md:'متوسط',s_fs_lg:'كبير',
+ s_ai:'🤖 AI API (اختياري)',s_provider:'مزود الخدمة',s_none:'None — Mock AI الداخلي',s_apiurl:'رابط API (لخيار Custom)',s_apikey:'API Key',s_model:'الموديل',s_save:'💾 حفظ الإعدادات',s_reset:'↩️ Reset Settings',s_reset_msg:'سيتم إعادة جميع الإعدادات إلى الوضع الافتراضي. هل أنت متأكد؟',
+ s_api_note:'💡 التطبيق يعمل بالكامل بدون API باستخدام Mock AI الداخلي. أضف مفتاحًا فقط إذا أردت ربط خدمة حقيقية لاحقًا — ولا تشارك مفتاحك مع أي أحد.',
+ s_saved_toast:'تم حفظ الإعدادات',s_reset_toast:'تمت إعادة تعيين الإعدادات',
+ ld_1:'🤖 BAKO AI يعمل...',ld_2:'🔍 تحليل الفكرة...',ld_3:'✍️ كتابة العناوين والسكربت...',ld_4:'🎨 توليد أفكار الصورة المصغرة...',ld_5:'✅ اللمسات الأخيرة...',
+ t_done:'✅ تم إنشاء المحتوى!',t_err:'حدث خطأ، حاول مرة أخرى',t_err_empty:'⚠️ اكتب فكرة الفيديو أولًا',t_saved:'تم حفظ المشروع',t_deleted:'تم حذف المشروع',t_copied:'✅ تم النسخ',t_exported:'تم تصدير الملف بنجاح',t_all_copied:'تم نسخ كل المحتوى',t_opened:'تم فتح المشروع',t_idea_set:'تم نقل الفكرة إلى صفحة الإنشاء',
+ m_del_title:'🗑️ حذف المشروع',m_del_msg:'هل أنت متأكد من حذف هذا المشروع نهائيًا؟',m_cancel:'إلغاء',m_confirm:'تأكيد',m_name_title:'💾 حفظ المشروع',m_name_label:'اسم المشروع',m_save:'حفظ'
+},
+en:{
+ nav_home:'Home',nav_create:'Create Content',nav_ideas:'Video Ideas',nav_thumb:'Thumbnail',nav_voice:'Voice Script',nav_assistant:'BAKO Assistant',nav_saved:'Saved',nav_settings:'Settings',offline_badge:'Works offline',
+ home_tagline:'Turn a simple idea into professional content',assistant_title:'🤖 BAKO AI Assistant',assistant_sub:'Ask for a video idea, title, hook, thumbnail or content improvement.',assistant_clear:'🗑️ Clear',assistant_welcome:'Hi! I am BAKO Assistant. Send me an idea or ask how to make your video stronger.',assistant_ph:'Example: Give me 5 strong hooks for a low-end gaming video...',assistant_send:'Send 🚀',assistant_offline:'Runs locally without API',home_cta:'🚀 Start Creating',home_tools:'🧰 Studio Tools',home_trend:'🔥 Trending Ideas',
+ stat1:'8+ smart tools',stat2:'3 content languages',stat3:'Works offline',
+ f_title_t:'🎬 Titles',f_title_d:'Catchy, ready-to-publish titles',f_script_t:'📝 Script',f_script_d:'Full script from HOOK to CTA',f_desc_t:'📄 Description',f_desc_d:'Pro description with chapters',f_hash_t:'#️⃣ Hashtags',f_hash_d:'Trending hashtags for your platform',f_thumb_t:'🖼️ Thumbnail',f_thumb_d:'Eye-catching thumbnail ideas',f_voice_t:'🎙️ Voice Script',f_voice_d:'Ready narration text for TTS',
+ create_title:'✍️ Create New Content',idea_label:'Video Idea',idea_ph:'Write your video idea here...\nExample: Top 10 games for low-end PCs',platform_label:'Platform',type_label:'Content Type',clang_label:'Content Language',tone_label:'Tone',len_label:'Script Length',rnd_idea:'🎲 Random Idea',gen_btn:'🔥 Generate Content',
+ results_title:'📊 Results',regen:'🔄 Regenerate',save_proj:'💾 Save Project',export_txt:'📄 Export TXT',copy_all:'📋 Copy All',copy:'📋 Copy',copied:'✅ Copied',
+ c_titles:'🔥 Suggested Titles',c_script:'📝 Script',c_desc:'📄 Video Description',c_hash:'#️⃣ Hashtags',c_thumb:'🖼️ Thumbnail Ideas',c_voice:'🎙️ Voice-Over Script',c_keys:'🔎 Keywords (SEO)',
+ th_el:'Elements',th_col:'Suggested Colors',th_txt:'Big Text',th_char:'Character Position',th_bg:'Background',th_comp:'Composition',
+ type_gaming:'Gaming',type_technology:'Technology',type_tutorial:'Tutorial',type_entertainment:'Entertainment',type_education:'Education',type_news:'News',type_other:'Other',
+ tone_professional:'Professional',tone_energetic:'Energetic',tone_short:'Short',tone_funny:'Funny',tone_formal:'Formal',
+ len_short:'Short',len_medium:'Medium',len_long:'Long',
+ ideas_title:'🎬 Video Ideas',ideas_sub:'Generate random ideas by content type or browse trending ones',gen_idea:'🎲 Generate Idea',use_idea:'✍️ Use Idea',
+ thumb_title:'🖼️ Thumbnail Ideas',thumb_sub:'Enter your video idea and get 5 professional thumbnail concepts',thumb_ph:'Write your video idea here...',gen_thumb:'🖼️ Generate Ideas',
+ voice_title:'🎙️ Voice-Over Script',voice_sub:'Enter your video idea and get TTS-ready narration',gen_voice:'🎙️ Generate Script',
+ saved_title:'📚 Saved Projects',no_saved:'No saved projects yet. Create content and hit 💾 Save Project',open_p:'Open',del_p:'Delete',
+ settings_title:'⚙️ Settings',s_appearance:'🎨 Appearance',s_theme:'Theme',s_dark:'Dark Mode',s_light:'Light Mode',s_uilang:'Interface Language',s_font:'Font Size',s_fs_sm:'Small',s_fs_md:'Medium',s_fs_lg:'Large',
+ s_ai:'🤖 AI API (Optional)',s_provider:'API Provider',s_none:'None — Built-in Mock AI',s_apiurl:'API URL (Custom only)',s_apikey:'API Key',s_model:'Model',s_save:'💾 Save Settings',s_reset:'↩️ Reset Settings',s_reset_msg:'All settings will return to defaults. Are you sure?',
+ s_api_note:'💡 The app works fully offline with the built-in Mock AI. Add a key only if you want to connect a real API later — never share your key.',
+ s_saved_toast:'Settings saved',s_reset_toast:'Settings reset',
+ ld_1:'🤖 BAKO AI is working...',ld_2:'🔍 Analyzing your idea...',ld_3:'✍️ Writing titles & script...',ld_4:'🎨 Generating thumbnail ideas...',ld_5:'✅ Final touches...',
+ t_done:'✅ Content created!',t_err:'Something went wrong, try again',t_err_empty:'⚠️ Write your video idea first',t_saved:'Project saved',t_deleted:'Project deleted',t_copied:'✅ Copied',t_exported:'File exported successfully',t_all_copied:'All content copied',t_opened:'Project opened',t_idea_set:'Idea moved to the Create page',
+ m_del_title:'🗑️ Delete Project',m_del_msg:'Delete this project permanently?',m_cancel:'Cancel',m_confirm:'Confirm',m_name_title:'💾 Save Project',m_name_label:'Project name',m_save:'Save'
+}
+};
+
+/* ================= SETTINGS & STATE ================= */
+const DEF_SETTINGS={theme:'dark',uiLang:'ar',fontSize:'md',apiProvider:'none',apiUrl:'',apiKey:'',apiModel:'gpt-4o-mini'};
+let settings=loadJSON('bako_settings',DEF_SETTINGS);
+const state={page:'home',currentResult:null,lastOpts:null,tempRes:{thumb:null,voice:null}};
+const t=k=>(I18N[settings.uiLang]&&I18N[settings.uiLang][k])||I18N.ar[k]||k;
+
+/* ================= MOCK AI : CONTENT TEMPLATES ================= */
+const CONTENT_TPL={
+ar:{
+ titles:['أفضل ما ستشاهده عن {idea} 🔥','{idea} — الدليل الكامل {year}','لن تصدق النتيجة! {idea} 😱','{idea}: كل ما تحتاج معرفته قبل البدء','جربت {idea} وهذه هي النتيجة الصادمة!','سر لا يخبرك به أحد عن {idea}','{idea} في {year} — الطريقة الصحيحة','لماذا يتحدث الجميع عن {idea}؟'],
+ hooks:{
+  professional:['هل تساءلت يومًا عن {idea}؟ في هذا الفيديو أقدم لك خلاصة التجربة والمعلومات الدقيقة في دقائق.','قبل أن تبدأ في {idea}، هناك أمور مهمة يجب أن تعرفها — وهذا بالضبط ما سنشرحه الآن.'],
+  energetic:['🔥 توقف عن كل شيء! هذا الفيديو عن {idea} سيغيّر نظرتك تمامًا!','أخيرًا! انتظرت طويلًا لأتكلم عن {idea}... واليوم هو اليوم! 🚀'],
+  short:['{idea}؟ الخلاصة في هذا الفيديو، بدون مقدمات طويلة.','ثوانٍ معدودة وستفهم كل شيء عن {idea}.'],
+  funny:['نعم نعم... {idea}! أنا أيضًا لم أصدق في البداية 😂 انتظروا حتى النهاية.','كنت أظن أن {idea} موضوع عادي... ثم حدث ما لم يكن في الحسبان 😅'],
+  formal:['نتناول في هذا الفيديو موضوع «{idea}» بالشرح والتحليل، مستندين إلى معلومات موثوقة.','يسعدنا أن نقدم لكم شرحًا وافيًا حول {idea}، مع التركيز على النقاط الجوهرية.']},
+ intros:['أهلًا بكم من جديد في القناة! 👋 موضوع حلقتنا اليوم: {idea}.','مرحبًا الجميع! 👋 في حلقة اليوم سنغوص معًا في {idea}.','أهلًا أصدقاء! اليوم موضوع مميز جدًا: {idea}.'],
+ plat:{
+  youtube:['إذا كنت جديدًا هنا فلا تنسَ الاشتراك وتفعيل الجرس 🔔 حتى يصلك كل جديد.','قبل أن نبدأ، اشترك في القناة لدعم المحتوى 🔔.'],
+  yshorts:['فيديو سريع ومباشر — ركّز معي للنهاية ⚡.','لا تنسَ الإعجاب والمتابعة لمزيد من الشورتس 🔥.'],
+  tiktok:['تابعني لمزيد من المحتوى اليومي 🔥 ولا تنسَ الإعجاب.','إذا وصلك هذا الفيديو فاعلم أن الخوارزمية تحبك 😄 تابعني!'],
+  reels:['احفظ هذا الريلز لتعود إليه لاحقًا 📌.','شارك هذا الريلز مع من يحتاجه ❤️.'],
+  facebook:['شارك المنشور مع أصدقائك ليستفيد الجميع 🙌.','اترك تفاعلك في التعليقات لنقدم المزيد.']},
+ sections:{
+  gaming:['التعريف باللعبة والأداة','متطلبات التشغيل','الإعدادات المثالية','نصائح لرفع الأداء','أخطاء يقع فيها الجميع','مقارنة سريعة','كلمة أخيرة عن التجربة'],
+  technology:['نظرة عامة على التقنية','المواصفات والتفاصيل','المميزات الحقيقية','العيوب التي يجب معرفتها','مقارنة مع البدائل','هل تستحق الشراء؟','خلاصة التجربة'],
+  tutorial:['التحضير والمتطلبات','الخطوة الأولى: الأساسيات','الخطوة الثانية: التطبيق العملي','الخطوة الثالثة: التفاصيل المتقدمة','حل المشكلات الشائعة','نصائح احترافية','مراجعة النتيجة النهائية'],
+  entertainment:['البداية والتشويق','اللحظة الأولى الصادمة','تطور الأحداث','المفاجأة الكبرى','ردود الأفعال','الكواليس','النهاية التي لم يتوقعها أحد'],
+  education:['المفهوم الأساسي','لماذا هذا الموضوع مهم؟','شرح مبسط بالأمثلة','تطبيقات عملية','أخطاء شائعة في الفهم','خلاصة سريعة','سؤال التحدي للجمهور'],
+  news:['عنوان الخبر الرئيسي','التفاصيل الكاملة','الخلفية والسياق','ردود الأفعال','التوقعات القادمة','ماذا يعني هذا لك؟','خلاصة الموقف'],
+  other:['المقدمة والتعريف','التفاصيل الأساسية','أهم النقاط العملية','نصائح وتجارب','أخطاء يجب تجنبها','أسئلة شائعة','الخلاصة النهائية']},
+ points:['في هذا الجزء نغطي «{s}»: شرح واضح ومباشر لكل التفاصيل التي تحتاجها عن {idea}.','ننتقل إلى «{s}» — هنا أقدم لك الخلاصة العملية مع أمثلة حقيقية مرتبطة بـ {idea}.','«{s}» نقطة محورية في موضوعنا؛ سأوضحها خطوة بخطوة حتى تكتمل الصورة حول {idea}.','الآن مع «{s}»: معلومات مركزة ونصائح يمكنك تطبيقها فورًا في {idea}.','الكثيرون يتجاهلون «{s}»، لكنه يصنع فرقًا كبيرًا في {idea} — وهذه هي التفاصيل.','وأخيرًا «{s}»: الخلاصة التي ستوفر عليك الوقت والجهد في {idea}.'],
+ endings:{
+  professional:['وهكذا نكون غطينا {idea} بشكل كامل. شكرًا لمتابعتكم حتى النهاية، ولقاءنا في الفيديو القادم.','هذا كل ما تحتاج معرفته عن {idea}. أراكم في المحتوى القادم بإذن الله.'],
+  energetic:['وصلنا للنهاية! 🔥 إذا وصلت إلى هنا فأنت أسطورة! لا تنسَ التفاعل 💪','كان هذا كل شيء عن {idea}! الفيديو القادم سيكون أقوى — انتظروني! 🚀'],
+  short:['هذا كل شيء. مختصر ومفيد 👌','وصلنا للنهاية — أراكم في القادم.'],
+  funny:['إذا وصلت إلى هنا فأنت رسمي من العائلة 😂 لا تنسَ اللايك!','وهكذا انتهت الحلقة قبل أن تنتهي هي منّا 😅 إلى اللقاء!'],
+  formal:['نختم هنا هذا الطرح حول {idea}. شكرًا لحسن متابعتكم.','بهذا نكون أتممنا الموضوع. نلقاكم في حلقات قادمة.']},
+ ctas:{
+  youtube:['🔔 اشترك في القناة وفعّل الجرس، اترك لايك 👍 واكتب في التعليقات: ما هي نقطتك المفضلة؟','👍 إذا استفدت من الفيديو اضغط لايك، اشترك، وشارك الفيديو مع صديق مهتم!'],
+  yshorts:['⚡ تابعني واشترك لمزيد من الشورتس اليومية، ولايك في ثانية يدعمنا كثيرًا ❤️','👆 اشترك الآن حتى لا يفوتك الجزء القادم!'],
+  tiktok:['❤️ لايك + متابعة = محتوى يومي يصلك أولًا، وشارك الفيديو مع أصدقائك!','📲 تابعني الآن واضغط ❤️ إذا وصلت إلى هنا!'],
+  reels:['📌 احفظ الريلز وتابعني للمزيد، وشاركه مع من يهمه الأمر ❤️','❤️ أعجبك؟ تابعنا وشارك الريلز في ستوري!'],
+  facebook:['🙌 تابع الصفحة وشارك المنشور، واكتب رأيك في التعليقات!','👍 لايك للصفحة ومشاركة المنشور تساعدنا على الوصول لجمهور أكبر.']},
+ descOpen:['🎬 في هذا الفيديو: {idea}. محتوى عملي ومباشر بدون حشو.','🚀 {idea} — كل التفاصيل والنصائح التي تحتاجها في فيديو واحد.','📌 دليلك الكامل حول {idea}: نقاط عملية وأمثلة حقيقية.'],
+ chTitle:'⏱️ الفصول:',chIntro:'المقدمة',chEnd:'الخاتمة',descFoot:'—\nتم الإنشاء بواسطة BAKO CREATOR STUDIO 🔥',
+ tagsBase:{gaming:['#Gaming','#Games','#Gamer','#ألعاب','#قيمز'],technology:['#Tech','#Technology','#تقنية','#تك'],tutorial:['#Tutorial','#HowTo','#شرح','#تعلم'],entertainment:['#Entertainment','#ترفيه','#تحدي'],education:['#Education','#تعلم','#معلومات'],news:['#News','#أخبار','#عاجل'],other:['#Content','#محتوى','#ترند']},
+ tagsPlat:{youtube:['#YouTube','#يوتيوب'],yshorts:['#Shorts','#YouTubeShorts'],tiktok:['#TikTok','#تيك_توك','#fyp'],reels:['#Reels','#Instagram'],facebook:['#Facebook','#فيسبوك']},
+ kwPlat:{youtube:'YouTube',yshorts:'YouTube Shorts',tiktok:'TikTok',reels:'Instagram Reels',facebook:'Facebook'},
+ kwBase:{gaming:['ألعاب','قيمز','أفضل ألعاب','gaming'],technology:['تقنية','مراجعة','أفضل التطبيقات','technology'],tutorial:['شرح','خطوة بخطوة','دليل المبتدئين','how to'],entertainment:['ترفيه','تحدي','مقالب'],education:['تعليم','معلومات','شرح مبسط'],news:['أخبار','آخر المستجدات','عاجل'],other:['محتوى','ترند','صناع المحتوى']},
+ stop:new Set(['في','من','على','عن','إلى','هذا','هذه','ذلك','التي','الذي','أن','إن','مع','أفضل','أسوأ','كيف','لماذا','ما','ماذا','هل','ثم','أو','و','يا','لن','قد','لقد']),
+ thumbs:function(v){
+  const C=[['أصفر فاقع + أسود','تباين يجذب الانتباه فورًا'],['أحمر ناري + أبيض','تباين قوي يوحي بالحماس'],['أزرق كهربائي + برتقالي','مزيج عصري يلمع في الخلاصات'],['بنفسجي + أصفر نيون','إحساس غامض ومميز'],['أخضر نيون + أسود','طابع تقني حديث']];
+  const big=[v.short,v.short+'!','السر هنا 🤫','شاهد قبل الحذف!','لا تفوّت هذا 🔥'];
+  const cc=shuffle(C);
+  return [
+   {el:'وجه صاحب القناة بتعبير الصدمة 😱 + عنصر كبير يمثل «'+v.short+'» + سهم أحمر يشير إليه',col:cc[0][0]+' — '+cc[0][1],txt:'«'+pick(big)+'» بخط عريض جدًا مع ظل أسود',char:'في أحد جانبي الصورة بحجم كبير (40% من المساحة)',bg:'خلفية ضبابية داكنة مع توهج خلف العنصر الرئيسي',comp:'قاعدة الأثلاث: الوجه في ثلث، العنصر في ثلث، النص في الثلث الأخير'},
+   {el:'نصفان: «قبل» باهت ورمادي مقابل «بعد» مليء بالألوان يمثل نتيجة '+v.short,col:cc[1][0]+' — '+cc[1][1],txt:'قبل / بعد بخط ضخم في المنتصف',char:'الشخصية تظهر في النصف «بعد» بابتسامة واثقة',bg:'تدرج لوني يفصل بين النصفين بزاوية مائلة',comp:'تقسيم قطري للصورة يخلق حركة بصرية'},
+   {el:'رقم ضخم ثلاثي الأبعاد + أيقونات صغيرة تمثل محتوى '+v.short,col:cc[2][0]+' — '+cc[2][1],txt:'الرقم الكبير مع كلمة واحدة قوية من العنوان',char:'شخصية صغيرة في الزاوية السفلية تشير إلى الرقم',bg:'خلفية داكنة مع نقاط ضوئية (Bokeh)',comp:'الرقم في المنتصف بحجم 50% من الصورة'},
+   {el:'عنصران متقابلان بينهما رمز VS مشتعل يمثل مقارنة في '+v.short,col:cc[3][0]+' — '+cc[3][1],txt:'اسم العنصرين + VS في الوسط',char:'بدون شخصية، التركيز على العناصر فقط',bg:'خلفية مقسومة بلونين متضادين',comp:'تماثل كامل بين الجانبين والمنتصف للعنصر الأقوى'},
+   {el:'ظل غامض (Silhouette) مع توهج نيون حول «'+v.short+'» وعلامة استفهام كبيرة',col:cc[4][0]+' — '+cc[4][1],txt:'سؤال قصير وحاد بخط نيون مضيء',char:'الشخصية كظل خلفي غامض في منتصف الخلفية',bg:'أسود عميق مع شعاع ضوء واحد من الأعلى',comp:'بساطة مقصودة: عنصر واحد فقط يلمع في العتمة'}];
+ }
+},
+en:{
+ titles:['{idea} — The Ultimate {year} Guide','I Tried {idea}… Here Is What Happened','The TRUTH About {idea}','{idea}: Everything You Need to Know','Why Everyone Is Talking About {idea}','{idea} Done Right (Step by Step)','You Are Doing {idea} WRONG!','{idea} in {year} — Watch Before It Is Too Late'],
+ hooks:{
+  professional:['Ever wondered about {idea}? In this video I break it all down for you.','Before you dive into {idea}, there are a few things you must know.'],
+  energetic:['STOP scrolling! This video about {idea} will blow your mind! 🔥','Finally! The {idea} video you have all been waiting for! 🚀'],
+  short:['{idea}? Here is the quick answer, no long intros.','Everything about {idea} in under a minute.'],
+  funny:['So… {idea}. Yeah, I did not believe it either 😂 stay till the end.','They said {idea} was boring. They were SO wrong 😅'],
+  formal:['In this video we examine {idea} in a clear and structured manner.','Today we take a detailed look at {idea}.']},
+ intros:['Welcome back to the channel! 👋 Today we are covering {idea}.','Hey everyone! 👋 In this episode: {idea}.','Hello friends! Today is a special one: {idea}.'],
+ plat:{
+  youtube:['If you are new here, subscribe and hit the bell 🔔 so you never miss an upload.','Quick reminder to subscribe — it really supports the channel 🔔.'],
+  yshorts:['Quick and straight to the point — stay with me ⚡.','Like and subscribe for daily Shorts 🔥.'],
+  tiktok:['Follow for daily content 🔥 and smash that like button.','If this reached your FYP, the algorithm likes you 😄 follow for more!'],
+  reels:['Save this reel so you can come back to it later 📌.','Share this reel with someone who needs it ❤️.'],
+  facebook:['Share this post with your friends 🙌.','Drop your thoughts in the comments!']},
+ sections:{
+  gaming:['Meet the Game','System Requirements','Best Settings','Performance Tips','Common Mistakes','Quick Comparison','Final Verdict'],
+  technology:['Overview','Specs & Details','The Real Pros','Cons to Know','Vs the Alternatives','Worth Buying?','Final Verdict'],
+  tutorial:['Preparation & Requirements','Step 1: The Basics','Step 2: Hands-On','Step 3: Advanced Details','Troubleshooting','Pro Tips','Final Review'],
+  entertainment:['The Setup','First Shocking Moment','Things Escalate','The Big Twist','Reactions','Behind the Scenes','The Unexpected Ending'],
+  education:['The Core Concept','Why It Matters','Simple Explanation With Examples','Practical Applications','Common Misconceptions','Quick Recap','Challenge Question'],
+  news:['The Main Headline','Full Details','Background & Context','Reactions','What Comes Next','What It Means For You','Bottom Line'],
+  other:['Introduction','The Basics','Key Practical Points','Tips & Experience','Mistakes to Avoid','FAQ','Final Summary']},
+ points:['In this part we cover "{s}" — a clear breakdown of everything you need about {idea}.','Moving on to "{s}" — practical takeaways and real examples related to {idea}.','"{s}" is a key point; I will walk you through it step by step.','Now "{s}": focused info and tips you can apply right away to {idea}.','Many people ignore "{s}", but it makes a huge difference in {idea}.','Finally "{s}": the summary that saves you time and effort in {idea}.'],
+ endings:{
+  professional:['That wraps up {idea}. Thanks for watching till the end — see you in the next one.','That is everything you need about {idea}. Catch you in the next video.'],
+  energetic:['We made it! 🔥 If you are still here you are a legend. Smash that like! 💪','That was {idea} in full. Next video is even bigger — stay tuned! 🚀'],
+  short:['That is it. Short and sweet 👌','Done — see you in the next one.'],
+  funny:['If you made it here, you are officially family 😂 do not forget the like!','And that is the video, before the video ended us 😅 bye!'],
+  formal:['This concludes our look at {idea}. Thank you for watching.','With that, we close today\'s topic. Until next time.']},
+ ctas:{
+  youtube:['🔔 Subscribe, hit the bell, drop a like 👍 and tell me in the comments: what was your favorite part?','👍 If this helped, like, subscribe and share it with a friend!'],
+  yshorts:['⚡ Subscribe for daily Shorts — a one-second like means a lot ❤️','👆 Subscribe now so you do not miss part 2!'],
+  tiktok:['❤️ Like + follow = daily content first. Share it with your friends!','📲 Follow now and tap ❤️ if you made it this far!'],
+  reels:['📌 Save this reel, follow for more, and share it with someone who needs it ❤️','❤️ Enjoyed it? Follow and share to your story!'],
+  facebook:['🙌 Follow the page, share the post and comment your opinion!','👍 A page like and a share help us reach more people.']},
+ descOpen:['🎬 In this video: {idea}. Practical, straight-to-the-point content.','🚀 {idea} — all the details and tips you need in one video.','📌 Your complete guide to {idea}: real tips and examples.'],
+ chTitle:'⏱️ Chapters:',chIntro:'Intro',chEnd:'Outro',descFoot:'—\nCreated with BAKO CREATOR STUDIO 🔥',
+ tagsBase:{gaming:['#Gaming','#Games','#Gamer','#Gameplay'],technology:['#Tech','#Technology','#Gadgets','#Innovation'],tutorial:['#Tutorial','#HowTo','#Learn','#StepByStep'],entertainment:['#Entertainment','#Fun','#Challenge'],education:['#Education','#Learn','#Facts'],news:['#News','#Breaking','#Update'],other:['#Content','#Trending','#Creator']},
+ tagsPlat:{youtube:['#YouTube'],yshorts:['#Shorts','#YouTubeShorts'],tiktok:['#TikTok','#fyp'],reels:['#Reels','#Instagram'],facebook:['#Facebook']},
+ kwPlat:{youtube:'YouTube',yshorts:'YouTube Shorts',tiktok:'TikTok',reels:'Instagram Reels',facebook:'Facebook'},
+ kwBase:{gaming:['gaming','best games','gameplay','free games'],technology:['tech review','gadgets','technology','smartphone'],tutorial:['step by step','how to','tutorial for beginners','easy guide'],entertainment:['funny video','challenge','reaction'],education:['learn','education','facts','explained'],news:['latest news','update','breaking'],other:['content creator','viral','trending']},
+ stop:new Set(['the','a','an','of','to','for','in','on','and','or','how','why','what','my','your','is','are','you','i','we','at','with','top','best']),
+ thumbs:function(v){
+  const C=[['bright yellow + black','maximum contrast'],['fire red + white','instant energy'],['electric blue + orange','modern look'],['purple + neon yellow','unique vibe'],['neon green + black','techy mood']];
+  const big=[v.short,v.short+'!','The Secret Is Here','Watch Before It Is Deleted!','Unbelievable 🔥'];
+  const cc=shuffle(C);
+  return [
+   {el:'Shocked creator face 😱 + a big element representing "'+v.short+'" + red arrow pointing at it',col:cc[0][0]+' — '+cc[0][1],txt:'"'+pick(big)+'" in huge bold font with drop shadow',char:'On one side, large (40% of the frame)',bg:'Blurred dark background with a glow behind the main element',comp:'Rule of thirds: face, element, text'},
+   {el:'Before / After split: dull gray vs vivid colors showing the result of '+v.short,col:cc[1][0]+' — '+cc[1][1],txt:'BEFORE / AFTER in the center',char:'Confident smiling character on the "after" side',bg:'Diagonal gradient splitting both halves',comp:'Diagonal split for a dynamic feel'},
+   {el:'Huge 3D number + small icons related to '+v.short,col:cc[2][0]+' — '+cc[2][1],txt:'The giant number + one power word',char:'Small character at the bottom corner pointing at the number',bg:'Dark background with bokeh lights',comp:'Number centered at 50% of the frame'},
+   {el:'Two elements facing off with a flaming VS about '+v.short,col:cc[3][0]+' — '+cc[3][1],txt:'Both names + VS in the middle',char:'No character, focus on the objects',bg:'Background split in two opposing colors',comp:'Perfect symmetry on both sides'},
+   {el:'Mysterious silhouette + neon glow around "'+v.short+'" + big question mark',col:cc[4][0]+' — '+cc[4][1],txt:'A short sharp question in neon font',char:'Silhouette in the center of the background',bg:'Deep black with a single light beam from above',comp:'Intentional minimalism: one glowing element'}];
+ }
+},
+fr:{
+ titles:["{idea} — Le guide complet {year}","J'ai testé {idea} et le résultat est fou","La VÉRITÉ sur {idea}","{idea} : tout ce qu'il faut savoir","Pourquoi tout le monde parle de {idea}","{idea} comme un pro (étape par étape)","Vous faites {idea} de travers !"],
+ hooks:{
+  professional:["Vous vous êtes déjà demandé {idea} ? Je vous explique tout en quelques minutes.","Avant de vous lancer dans {idea}, il y a des choses essentielles à savoir."],
+  energetic:["STOP ! Cette vidéo sur {idea} va changer votre vision 🔥","Enfin ! La vidéo sur {idea} que tout le monde attendait 🚀"],
+  short:["{idea} ? La réponse rapide, sans blabla.","Tout sur {idea} en moins d'une minute."],
+  funny:["Alors… {idea}. Oui, moi non plus je n'y croyais pas 😂","On m'a dit que {idea} était ennuyeux. Grosse erreur 😅"],
+  formal:["Nous abordons aujourd'hui {idea} de manière claire et structurée.","Voici une analyse détaillée de {idea}."]},
+ intros:["Bienvenue sur la chaîne ! 👋 Aujourd'hui : {idea}.","Salut tout le monde ! 👋 Au programme : {idea}.","Bonjour les amis ! Sujet du jour : {idea}."],
+ plat:{
+  youtube:["Si vous êtes nouveau, abonnez-vous et activez la cloche 🔔.","Petit rappel : l'abonnement soutient la chaîne 🔔."],
+  yshorts:["Rapide et efficace — restez jusqu'au bout ⚡.","Likez et abonnez-vous pour des Shorts quotidiens 🔥."],
+  tiktok:["Abonne-toi pour du contenu quotidien 🔥 et lâche un like !","Si cette vidéo est arrivée jusqu'à toi, l'algorithme t'aime 😄"],
+  reels:["Enregistre ce reel pour le retrouver plus tard 📌.","Partage ce reel à quelqu'un qui en a besoin ❤️."],
+  facebook:["Partagez cette publication avec vos amis 🙌.","Donnez votre avis en commentaire !"]},
+ sections:{
+  gaming:["Présentation du jeu","Configuration requise","Réglages idéaux","Astuces de performance","Erreurs courantes","Comparaison rapide","Verdict final"],
+  technology:["Vue d'ensemble","Caractéristiques","Vrais avantages","Défauts à connaître","Face à la concurrence","Vaut-il le coup ?","Bilan"],
+  tutorial:["Préparation","Étape 1 : les bases","Étape 2 : la pratique","Étape 3 : niveau avancé","Dépannage","Conseils de pro","Résultat final"],
+  entertainment:["Le départ","Premier choc","Ça s'emballe","Le grand twist","Réactions","Les coulisses","Fin inattendue"],
+  education:["Le concept clé","Pourquoi c'est important","Explication simple","Applications pratiques","Idées reçues","Récap rapide","Question défi"],
+  news:["Le titre principal","Tous les détails","Le contexte","Réactions","La suite","Ce que ça change pour vous","Conclusion"],
+  other:["Introduction","Les bases","Points pratiques","Conseils","Erreurs à éviter","FAQ","Résumé final"]},
+ points:["Dans cette partie : « {s} », tout ce qu'il faut savoir sur {idea}.","Passons à « {s} » : conseils concrets et exemples liés à {idea}.","« {s} » est un point clé, je vous guide pas à pas.","Voici « {s} » : des infos utiles et applicables immédiatement.","Beaucoup ignorent « {s} », mais ça change tout pour {idea}.","Enfin « {s} » : le résumé qui vous fait gagner du temps."],
+ endings:{
+  professional:["Voilà, {idea} n'a plus de secrets. Merci d'avoir regardé !","C'est tout pour {idea}. À très vite pour la prochaine vidéo."],
+  energetic:["C'est fini ! 🔥 Si tu es encore là, tu es une légende 💪","Prochaine vidéo encore plus grosse — restez connectés 🚀"],
+  short:["C'est tout, court et efficace 👌","Voilà — à la prochaine."],
+  funny:["Si tu es arrivé jusqu'ici, on est famille 😂","Et voilà, la vidéo est finie avant nous 😅"],
+  formal:["Nous concluons ici ce sujet. Merci de votre attention.","Le sujet est clos. À bientôt."]},
+ ctas:{
+  youtube:["🔔 Abonnez-vous, activez la cloche, likez 👍 et dites-moi en commentaire votre passage préféré !","👍 Si cette vidéo vous a aidé : like, abonnement et partage !"],
+  yshorts:["⚡ Abonnez-vous pour des Shorts quotidiens ❤️","👆 Abonne-toi pour ne pas rater la partie 2 !"],
+  tiktok:["❤️ Like + abonnement = contenu quotidien. Partage à tes amis !","📲 Abonne-toi et appuie sur ❤️ !"],
+  reels:["📌 Enregistre, abonne-toi et partage ❤️","❤️ Partage ce reel en story !"],
+  facebook:["🙌 Suivez la page, partagez et commentez !","👍 Un like et un partage nous aident énormément."]},
+ descOpen:["🎬 Dans cette vidéo : {idea}. Du concret, sans remplissage.","🚀 {idea} : tous les conseils dans une seule vidéo.","📌 Le guide complet de {idea}."],
+ chTitle:"⏱️ Chapitres :",chIntro:"Intro",chEnd:"Fin",descFoot:"—\nCréé avec BAKO CREATOR STUDIO 🔥",
+ tagsBase:{gaming:["#Gaming","#Jeux","#Gamer"],technology:["#Tech","#Technologie","#Innovation"],tutorial:["#Tutoriel","#Apprendre","#HowTo"],entertainment:["#Divertissement","#Fun","#Challenge"],education:["#Éducation","#Apprendre","#Culture"],news:["#Actualité","#News","#Info"],other:["#Contenu","#Tendance","#Créateur"]},
+ tagsPlat:{youtube:["#YouTube"],yshorts:["#Shorts","#YouTubeShorts"],tiktok:["#TikTok","#PourToi"],reels:["#Reels","#Instagram"],facebook:["#Facebook"]},
+ kwPlat:{youtube:"YouTube",yshorts:"YouTube Shorts",tiktok:"TikTok",reels:"Instagram Reels",facebook:"Facebook"},
+ kwBase:{gaming:["jeux vidéo","meilleurs jeux","gaming"],technology:["high-tech","test produit","technologie"],tutorial:["tutoriel","étape par étape","débutant"],entertainment:["vidéo drôle","challenge","divertissement"],education:["apprendre","culture","expliqué"],news:["actualités","infos","dernières nouvelles"],other:["créateur de contenu","viral","tendance"]},
+ stop:new Set(["le","la","les","de","des","du","un","une","et","ou","pour","sur","dans","avec","comment","pourquoi","mon","mes","ce","cette","est","sont","top","meilleur","meilleure","que","qui","ne","pas"]),
+ thumbs:function(v){
+  const C=[["jaune vif + noir","contraste maximal"],["rouge feu + blanc","énergie immédiate"],["bleu électrique + orange","look moderne"],["violet + jaune néon","style unique"],["vert néon + noir","ambiance tech"]];
+  const big=[v.short,v.short+" !","Le secret est ici","À voir avant suppression !","Incroyable 🔥"];
+  const cc=shuffle(C);
+  return [
+   {el:"Visage choqué 😱 du créateur + grand élément représentant « "+v.short+" » + flèche rouge",col:cc[0][0]+" — "+cc[0][1],txt:"« "+pick(big)+" » en très gros avec ombre portée",char:"Sur un côté, en grand (40% de l'image)",bg:"Fond sombre flou avec halo lumineux",comp:"Règle des tiers : visage, élément, texte"},
+   {el:"Avant / Après : gauche terne contre droite éclatante pour "+v.short,col:cc[1][0]+" — "+cc[1][1],txt:"AVANT / APRÈS au centre",char:"Personnage souriant côté « après »",bg:"Dégradé diagonal séparant les deux moitiés",comp:"Composition diagonale dynamique"},
+   {el:"Grand chiffre 3D + icônes liées à "+v.short,col:cc[2][0]+" — "+cc[2][1],txt:"Le chiffre géant + un mot fort",char:"Petit personnage en bas qui pointe le chiffre",bg:"Fond sombre avec bokeh lumineux",comp:"Le chiffre occupe 50% de l'image"},
+   {el:"Deux éléments face à face avec un VS enflammé pour "+v.short,col:cc[3][0]+" — "+cc[3][1],txt:"Les deux noms + VS au centre",char:"Sans personnage, focus sur les objets",bg:"Fond coupé en deux couleurs opposées",comp:"Symétrie parfaite des deux côtés"},
+   {el:"Silhouette mystérieuse + halo néon autour de « "+v.short+" » + grand point d'interrogation",col:cc[4][0]+" — "+cc[4][1],txt:"Une question courte en néon",char:"Silhouette en arrière-plan au centre",bg:"Noir profond avec un seul rayon de lumière",comp:"Minimaliste : un seul élément qui brille"}];
+ }
+}
+};
+
+/* ================= IDEA POOLS ================= */
+const IDEA_POOL={
+ar:{gaming:['أفضل 5 ألعاب مجانية تستحق التحميل في 2026','تجربة أقوى لعبة عالم مفتوح على هاتف ضعيف','تحدي الفوز بمباراة كاملة بأسلحة عشوائية','أفضل ألعاب الرعب التي ستجعلك لا تنام','ترتيب ألعاب القصة من الأسوأ إلى الأفضل'],technology:['مقارنة بين هاتف اقتصادي وهاتف رائد: هل الفرق يستحق؟','5 خفايا في هاتفك لم تكن تعرفها','أفضل 5 تطبيقات مجانية غيّرت طريقة عملي','هل يستحق شراء لابتوب مستعمل في 2026؟','أدوات ذكاء اصطناعي مجانية تنجز مهامك اليومية'],tutorial:['شرح إنشاء قناة ناجحة من الصفر خطوة بخطوة','طريقة مونتاج فيديو احترافي بالهاتف فقط','كيف تتعلم أي مهارة في 30 يومًا','دليل تفعيل الربح من الإنترنت للمبتدئين','أسرع طريقة لتعلم الإنجليزية ذاتيًا'],entertainment:['تحدي أكل أشهى طبق حار جدًا 🌶️','ردة فعلي على أغرب منتجات الإنترنت','يوم كامل بدون هاتف: ماذا حدث؟','أفكار مقالب مضحكة مع الأصدقاء','أحاول إنهاء مهمة مستحيلة في 24 ساعة'],education:['لماذا ننسى ما نتعلمه بسرعة؟ الإجابة العلمية','5 عادات صباحية تغيّر حياتك فعليًا','كيف يعمل الدماغ عند اتخاذ القرارات؟','أشهر الخرافات العلمية التي نصدقها','ملخص كتاب شهير في 10 دقائق'],news:['أهم 5 أخبار تقنية لهذا الأسبوع','جديد عالم الذكاء الاصطناعي اليوم','أبرز تحديثات الألعاب المنتظرة هذا الشهر','قصة خبرية غريبة انتشرت اليوم','ماذا يعني القرار الجديد لصناع المحتوى؟'],other:['قصة نجاح ملهمة من الصفر إلى القمة','أفضل 5 كتب ستغير طريقة تفكيرك','روتيني اليومي كصانع محتوى','أسئلة الجمهور: أجيب على كل شيء','أشياء أتمنى لو عرفتها قبل بدء قناتي']},
+en:{gaming:['Top 5 Free Games You Must Play in 2026','Beating the Hardest Boss Using Only Random Weapons','Best Horror Games That Will Keep You Awake','Ranking Every Open-World Game From Worst to Best','Can a Low-End PC Run the Newest AAA Games?'],technology:['Budget Phone vs Flagship: Is the Upgrade Worth It?','5 Hidden Features on Your Phone You Never Knew','Top 5 Free Apps That Changed My Workflow','Is Buying a Used Laptop Worth It in 2026?','Free AI Tools That Do Your Daily Tasks For You'],tutorial:['How to Start a Successful Channel From Zero','Editing Professional Videos Using Only Your Phone','Learn Any Skill in 30 Days: Full Roadmap','Beginner Guide to Making Money Online','The Fastest Way to Learn a New Language Alone'],entertainment:['Trying the Spiciest Dish Challenge 🌶️','Reacting to the Weirdest Products on the Internet','24 Hours Without My Phone: What Happened?','Funny Prank Ideas to Try With Friends','Attempting an Impossible Challenge in 24 Hours'],education:['Why We Forget What We Learn: The Science','5 Morning Habits That Actually Change Your Life','How Your Brain Makes Decisions','Common Science Myths Everyone Believes','Famous Book Summarized in 10 Minutes'],news:['Top 5 Tech News This Week','What is New in AI Today','Most Anticipated Game Updates This Month','The Weird News Story Everyone Is Talking About','What the New Rules Mean for Creators'],other:['An Inspiring Story From Zero to Success','Top 5 Books That Will Change Your Mindset','My Daily Routine as a Content Creator','Q&A: Answering Everything You Asked','Things I Wish I Knew Before Starting My Channel']}
+};
+
+/* ================= GENERATOR ENGINE ================= */
+function tuneTitle(x,tone){
+ if(tone==='energetic')return x+' '+pick(['🔥','⚡','🚀','💥']);
+ if(tone==='funny')return x+' '+pick(['😂','🤣','😅']);
+ if(tone==='formal'||tone==='professional')return stripEmoji(x);
+ return x;
+}
+function ideaWords(idea,T){
+ return idea.replace(/[^\p{L}\p{N}\s]/gu,'').split(/\s+/).filter(w=>w.length>2&&!T.stop.has(w.toLowerCase()));
+}
+function buildHashtags(T,o,idea){
+ const set=new Set();
+ (T.tagsBase[o.type]||T.tagsBase.other).forEach(x=>set.add(x));
+ (T.tagsPlat[o.platform]||[]).forEach(x=>set.add(x));
+ ideaWords(idea,T).slice(0,5).forEach(w=>set.add('#'+w));
+ set.add('#'+YEAR);
+ return Array.from(set).slice(0,14);
+}
+function buildKeywords(T,o,idea){
+ const s=new Set();
+ (T.kwBase[o.type]||T.kwBase.other).forEach(k=>s.add(k));
+ ideaWords(idea,T).slice(0,6).forEach(w=>s.add(w+' '+YEAR));
+ s.add((T.kwPlat[o.platform]||'YouTube')+' '+YEAR);
+ return Array.from(s).slice(0,15);
+}
+function buildDesc(T,o,script,hashtags,v){
+ const lines=[fill(pick(T.descOpen),v),'',T.chTitle,'00:00 '+T.chIntro];
+ script.main.forEach((it,i)=>{const mm=String((i+1)*2).padStart(2,'0');lines.push(mm+':'+pick(['10','25','40','55'])+' '+it.t);});
+ lines.push(String((script.main.length+1)*2).padStart(2,'0')+':00 '+T.chEnd);
+ lines.push('',fill(pick(T.ctas[o.platform]||T.ctas.youtube),v),'',hashtags.join(' '),T.descFoot);
+ return lines.join('\n');
+}
+function generateContent(o){
+ const lang=['ar','en','fr'].indexOf(o.lang)>=0?o.lang:'en';
+ const T=CONTENT_TPL[lang];
+ const idea=o.idea.trim();
+ const short=idea.split(/\s+/).slice(0,4).join(' ');
+ const v={idea:idea,short:short,year:YEAR};
+ const titles=shuffle(T.titles.map(x=>fill(x,v))).slice(0,5).map(x=>tuneTitle(x,o.tone));
+ const hook=fill(pick(T.hooks[o.tone]||T.hooks.professional),v);
+ const intro=fill(pick(T.intros),v)+' '+fill(pick(T.plat[o.platform]||T.plat.youtube),v);
+ const n=o.length==='short'?3:(o.length==='long'?7:5);
+ const secs=T.sections[o.type]||T.sections.other;
+ const main=[];
+ for(let i=0;i<n;i++){const sTitle=secs[i%secs.length];main.push({t:sTitle,b:fill(pick(T.points),{idea:idea,short:short,year:YEAR,s:sTitle,n:i+1})});}
+ const ending=fill(pick(T.endings[o.tone]||T.endings.professional),v);
+ const cta=fill(pick(T.ctas[o.platform]||T.ctas.youtube),v);
+ const script={hook:hook,intro:intro,main:main,ending:ending,cta:cta};
+ const hashtags=buildHashtags(T,o,idea);
+ const thumbs=T.thumbs(v);
+ const voice=[stripEmoji(hook),stripEmoji(fill(pick(T.intros),v))].concat(script.main.map(it=>stripEmoji(it.b))).concat([stripEmoji(ending),stripEmoji(cta)]).join('\n\n');
+ const description=buildDesc(T,o,script,hashtags,v);
+ const keywords=buildKeywords(T,o,idea);
+ return {idea:idea,opts:Object.assign({},o),lang:lang,titles:titles,script:script,description:description,hashtags:hashtags,thumbs:thumbs,voice:voice,keywords:keywords};
+}
+
+/* ================= OPTIONAL REMOTE API ================= */
+async function callRemoteAPI(o){
+ const provider=settings.apiProvider;
+ const url=provider==='openai'?'https://api.openai.com/v1/chat/completions':settings.apiUrl;
+ if(!url)return null;
+ const body={model:settings.apiModel||'gpt-4o-mini',temperature:0.9,messages:[{role:'user',content:'You are a content creation assistant. Idea: "'+o.idea+'". Platform: '+o.platform+'. Tone: '+o.tone+'. Language: '+o.lang+'. Return ONLY strict JSON: {"titles":[5 strings],"description":"string","hashtags":["strings"],"keywords":["strings"],"voice":"string"}'}]};
+ const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+settings.apiKey},body:JSON.stringify(body)});
+ if(!res.ok)throw new Error('bad status');
+ const j=await res.json();
+ const txt=(j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content)||'';
+ const m=txt.match(/\{[\s\S]*\}/);
+ if(!m)return null;
+ return JSON.parse(m[0]);
+}
+function validResult(r){return r&&Array.isArray(r.titles)&&r.titles.length>0&&typeof r.description==='string';}
+function normalizeResult(r,o){
+ const base=generateContent(o);
+ return Object.assign({},base,{
+  titles:r.titles.slice(0,6),
+  description:r.description||base.description,
+  hashtags:Array.isArray(r.hashtags)&&r.hashtags.length?r.hashtags:base.hashtags,
+  keywords:Array.isArray(r.keywords)&&r.keywords.length?r.keywords:base.keywords,
+  voice:typeof r.voice==='string'&&r.voice?r.voice:base.voice});
+}
+
+/* ================= UI HELPERS ================= */
+const PAGE_KEYS={home:'nav_home',create:'nav_create',ideas:'nav_ideas',thumb:'nav_thumb',voice:'nav_voice',assistant:'nav_assistant',saved:'nav_saved',settings:'nav_settings'};
+function navigate(p){
+ state.page=p;
+ $$('.page').forEach(s=>s.classList.toggle('active',s.id==='page-'+p));
+ $$('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.page===p));
+ $('#pageTitle').textContent=t(PAGE_KEYS[p]);
+ closeSidebar();
+ if(p==='saved')renderSaved();
+ window.scrollTo({top:0});
+}
+function openSidebar(){$('#sidebar').classList.add('open');$('#backdrop').classList.add('show');}
+function closeSidebar(){$('#sidebar').classList.remove('open');$('#backdrop').classList.remove('show');}
+function toast(msg,type){
+ const w=$('#toastWrap');const d=document.createElement('div');
+ d.className='toast'+(type==='err'?' err':'');d.textContent=msg;w.appendChild(d);
+ setTimeout(()=>{d.classList.add('out');setTimeout(()=>d.remove(),380);},2600);
+}
+let modalConfirmFn=null;
+function openModal(o){
+ $('#modalTitle').textContent=o.title||'';
+ $('#modalBody').innerHTML=o.bodyHTML||'';
+ const cf=$('#modalConfirm');
+ cf.style.display=o.onConfirm?'':'none';
+ cf.textContent=o.confirmText||t('m_confirm');
+ cf.className='btn '+(o.danger?'btn-danger':'btn-primary');
+ modalConfirmFn=o.onConfirm||null;
+ $('#modalCancel').textContent=o.cancelText||t('m_cancel');
+ $('#modalOverlay').classList.remove('hidden');
+}
+function closeModal(){$('#modalOverlay').classList.add('hidden');modalConfirmFn=null;}
+let loadTimer=null;
+function showLoading(){
+ $('#loadingOverlay').classList.remove('hidden');
+ const steps=[t('ld_1'),t('ld_2'),t('ld_3'),t('ld_4'),t('ld_5')];
+ let i=0;$('#loadText').textContent=steps[0];$('#loadBar').style.width='8%';
+ loadTimer=setInterval(()=>{i=Math.min(i+1,steps.length-1);$('#loadText').textContent=steps[i];$('#loadBar').style.width=(8+i*22)+'%';},180);
+}
+function hideLoading(){
+ if(loadTimer){clearInterval(loadTimer);loadTimer=null;}
+ $('#loadBar').style.width='100%';
+ setTimeout(()=>{$('#loadingOverlay').classList.add('hidden');$('#loadBar').style.width='0%';},260);
+}
+function copyText(text,btn){
+ const done=ok=>{
+  if(btn){const old=btn.innerHTML;btn.classList.add('copied');btn.innerHTML=ok?'✅ '+t('copied').replace('✅','').trim():'❌';
+   setTimeout(()=>{btn.innerHTML=old;btn.classList.remove('copied');},2000);}
+  if(ok)toast(t('t_copied'));
+ };
+ const fallback=()=>{try{const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();document.execCommand('copy');document.body.removeChild(ta);done(true);}catch(e){done(false);}};
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(()=>done(true)).catch(fallback);}else{fallback();}
+}
+function fmtDate(iso){
+ try{const d=new Date(iso);const loc=settings.uiLang==='ar'?'ar-EG':'en-GB';
+  return d.toLocaleDateString(loc,{year:'numeric',month:'short',day:'numeric'})+' • '+d.toLocaleTimeString(loc,{hour:'2-digit',minute:'2-digit'});}catch(e){return iso;}
+}
+
+/* ================= RESULTS RENDERING ================= */
+function cbtn(kind){return '<button class="btn btn-sm" data-act="copy" data-kind="'+kind+'">'+t('copy')+'</button>';}
+function rcard(title,body,headExtra,delay){
+ return '<div class="card rcard" style="animation-delay:'+(delay||0)+'ms"><div class="rc-head"><h3>'+title+'</h3>'+(headExtra||'')+'</div><div class="rc-body">'+body+'</div></div>';
+}
+function titlesBlock(res){
+ return res.titles.map((x,i)=>'<div class="title-row"><span class="num">'+(i+1)+'</span><div class="title-txt">'+esc(x)+'</div><button class="btn btn-sm" data-act="copy" data-kind="title" data-idx="'+i+'">'+t('copy')+'</button></div>').join('');
+}
+function scriptBlock(res){
+ const s=res.script;
+ const mainHTML=s.main.map(it=>'<div class="s-item"><div class="s-sub">🔹 '+esc(it.t)+'</div><p>'+esc(it.b)+'</p></div>').join('');
+ return '<div class="s-block"><span class="s-label lb-hook">HOOK</span><p>'+esc(s.hook)+'</p></div>'+
+ '<div class="s-block"><span class="s-label lb-intro">INTRO</span><p>'+esc(s.intro)+'</p></div>'+
+ '<div class="s-block"><span class="s-label lb-main">MAIN CONTENT</span>'+mainHTML+'</div>'+
+ '<div class="s-block"><span class="s-label lb-end">ENDING</span><p>'+esc(s.ending)+'</p></div>'+
+ '<div class="s-block"><span class="s-label lb-cta">CTA</span><p>'+esc(s.cta)+'</p></div>';
+}
+function tagsBlock(arr){return '<div class="tags-wrap">'+arr.map(x=>'<span class="tag">'+esc(x)+'</span>').join('')+'</div>';}
+function thumbsBlock(res){
+ return res.thumbs.map((th,i)=>'<div class="thumb-item"><div class="thumb-head">💡 '+t('c_thumb').replace('🖼️','').trim()+' '+(i+1)+'<button class="btn btn-sm" data-act="copy" data-kind="thumb" data-idx="'+i+'">'+t('copy')+'</button></div><dl>'+
+ '<div><dt>'+t('th_el')+'</dt><dd>'+esc(th.el)+'</dd></div>'+
+ '<div><dt>'+t('th_col')+'</dt><dd>'+esc(th.col)+'</dd></div>'+
+ '<div><dt>'+t('th_txt')+'</dt><dd>'+esc(th.txt)+'</dd></div>'+
+ '<div><dt>'+t('th_char')+'</dt><dd>'+esc(th.char)+'</dd></div>'+
+ '<div><dt>'+t('th_bg')+'</dt><dd>'+esc(th.bg)+'</dd></div>'+
+ '<div><dt>'+t('th_comp')+'</dt><dd>'+esc(th.comp)+'</dd></div></dl></div>').join('');
+}
+function renderResults(res){
+ const dir=res.lang==='ar'?'rtl':'ltr';
+ const g=$('#resultsGrid');
+ g.setAttribute('dir',dir);
+ g.innerHTML=[
+  rcard(t('c_titles'),titlesBlock(res),null,0),
+  rcard(t('c_script'),scriptBlock(res),cbtn('script'),60),
+  rcard(t('c_desc'),'<pre class="prewrap">'+esc(res.description)+'</pre>',cbtn('desc'),120),
+  rcard(t('c_hash'),tagsBlock(res.hashtags),cbtn('hash'),180),
+  rcard(t('c_thumb'),thumbsBlock(res),null,240),
+  rcard(t('c_voice'),'<pre class="prewrap">'+esc(res.voice)+'</pre>',cbtn('voice'),300),
+  rcard(t('c_keys'),tagsBlock(res.keywords),cbtn('keys'),360)
+ ].join('');
+}
+function thumbToText(th){return t('th_el')+': '+th.el+'\n'+t('th_col')+': '+th.col+'\n'+t('th_txt')+': '+th.txt+'\n'+t('th_char')+': '+th.char+'\n'+t('th_bg')+': '+th.bg+'\n'+t('th_comp')+': '+th.comp;}
+function scriptToText(s){
+ const L=['[HOOK]',s.hook,'','[INTRO]',s.intro,'','[MAIN CONTENT]'];
+ s.main.forEach(it=>L.push('• '+it.t+': '+it.b));
+ L.push('','[ENDING]',s.ending,'','[CTA]',s.cta);
+ return L.join('\n');
+}
+function resolveCopy(res,kind,idx){
+ if(!res)return '';
+ switch(kind){
+  case 'title':return res.titles[+idx]||'';
+  case 'script':return scriptToText(res.script);
+  case 'desc':return res.description;
+  case 'hash':return res.hashtags.join(' ');
+  case 'thumb':return res.thumbs[+idx]?thumbToText(res.thumbs[+idx]):'';
+  case 'voice':return res.voice;
+  case 'keys':return res.keywords.join(', ');
+ }
+ return '';
+}
+function allText(res){
+ const L=['BAKO CREATOR STUDIO 🔥',t('idea_label')+': '+res.idea,''];
+ L.push('== '+t('c_titles')+' ==');res.titles.forEach((x,i)=>L.push((i+1)+'. '+x));L.push('');
+ L.push('== '+t('c_script')+' ==',scriptToText(res.script),'');
+ L.push('== '+t('c_desc')+' ==',res.description,'');
+ L.push('== '+t('c_hash')+' ==',res.hashtags.join(' '),'');
+ L.push('== '+t('c_thumb')+' ==');res.thumbs.forEach((th,i)=>L.push('#'+(i+1)+'\n'+thumbToText(th),''));
+ L.push('== '+t('c_voice')+' ==',res.voice,'');
+ L.push('== '+t('c_keys')+' ==',res.keywords.join(', '));
+ return L.join('\n');
+}
+function attachCopyHandler(el,getRes){
+ el.addEventListener('click',e=>{
+  const b=e.target.closest('[data-act="copy"]');if(!b)return;
+  const res=getRes();if(!res)return;
+  copyText(resolveCopy(res,b.dataset.kind,b.dataset.idx),b);
+ });
+}
+
+/* ================= GENERATION FLOW ================= */
+function readForm(){return{idea:$('#ideaInput').value.trim(),platform:$('#selPlatform').value,type:$('#selType').value,lang:$('#selLang').value,tone:$('#selTone').value,length:$('#selLen').value};}
+function handleGenerate(optsOverride){
+ const opts=optsOverride||readForm();
+ if(!opts.idea){toast(t('t_err_empty'),'err');$('#ideaInput').focus();return;}
+ if(!optsOverride)state.lastOpts=opts;
+ showLoading();
+ const useApi=location.protocol!=='file:'&&settings.apiProvider!=='none'&&settings.apiKey.trim();
+ const prm=useApi?callRemoteAPI(opts).catch(()=>null):Promise.resolve(null);
+ const minDelay=new Promise(r=>setTimeout(r,450+Math.random()*250));
+ Promise.all([prm,minDelay]).then(arr=>{
+  const remote=arr[0];
+  const res=validResult(remote)?normalizeResult(remote,opts):generateContent(opts);
+  state.currentResult=res;
+  hideLoading();
+  renderResults(res);
+  $('#resultsArea').classList.remove('hidden');
+  toast(t('t_done'));
+  setTimeout(()=>$('#resultsArea').scrollIntoView({behavior:'smooth',block:'start'}),350);
+ }).catch(()=>{hideLoading();toast(t('t_err'),'err');});
+}
+function detectType(s){
+ const m={gaming:/لعب|game|gaming|jeu/i,technology:/هاتف|تطبيق|حاسوب|تقني|لابتوب|ذكاء|phone|app|tech|pc|laptop|ai/i,tutorial:/شرح|كيف|طريقة|خطوة|how|tutorial|guide|étape/i,education:/تعل|درس|كتاب|learn|study|book|apprendre/i,news:/خبر|أخبار|عاجل|news|actualité/i,entertainment:/تحدي|مقلب|رد فعل|challenge|prank|react|défi/i};
+ for(const k in m){if(m[k].test(s))return k;}
+ return 'other';
+}
+
+/* ================= SAVED PROJECTS ================= */
+function renderSaved(){
+ const list=loadArr('bako_projects').sort((a,b)=>((b.pinned?1:0)-(a.pinned?1:0))||(new Date(b.date)-new Date(a.date)));
+ const el=$('#savedList');
+ if(!list.length){el.innerHTML='<div class="card empty"><div class="empty-ico">📚</div><p>'+esc(t('no_saved'))+'</p></div>';return;}
+ el.innerHTML=list.map(p=>'<div class="card proj'+(p.pinned?' pinned':'')+'">'+
+  '<div class="proj-top"><span class="proj-name">'+esc(p.name)+'</span>'+(p.pinned?'<span class="badge">📌</span>':'')+(p.favorite?'<span class="badge">⭐</span>':'')+'</div>'+
+  '<p class="proj-idea">'+esc(p.idea)+'</p>'+
+  '<div class="proj-meta">🗓️ '+fmtDate(p.date)+'</div>'+
+  '<div class="proj-actions">'+
+  '<button class="btn btn-sm btn-primary" data-sact="open" data-id="'+p.id+'">📂 '+t('open_p')+'</button>'+
+  '<button class="btn btn-sm" data-sact="pin" data-id="'+p.id+'">📌</button>'+
+  '<button class="btn btn-sm" data-sact="fav" data-id="'+p.id+'">'+(p.favorite?'⭐':'☆')+'</button>'+
+  '<button class="btn btn-sm btn-danger" data-sact="del" data-id="'+p.id+'">🗑️ '+t('del_p')+'</button>'+
+  '</div></div>').join('');
+}
+
+/* ================= IDEAS / TREND ================= */
+function useIdea(idea,type){
+ $('#ideaInput').value=idea;
+ if(type)setVal('#selType',type);
+ navigate('create');
+ toast('✍️ '+t('t_idea_set'));
+}
+function renderTrend(){
+ const pool=IDEA_POOL[settings.uiLang==='ar'?'ar':'en'];
+ const types=Object.keys(pool);
+ const trend=[];const used={};
+ let guard=0;
+ while(trend.length<6&&guard<60){guard++;const ty=pick(types);const it=pick(pool[ty]);if(used[it])continue;used[it]=1;trend.push({idea:it,type:ty});}
+ $('#homeTrend').innerHTML=trend.slice(0,5).map(x=>'<button class="chip" data-idea="'+esc(x.idea)+'" data-type="'+x.type+'">🔥 '+esc(x.idea)+'</button>').join('');
+ $('#trendList').innerHTML=trend.map(x=>'<div class="card idea-card"><span class="badge">'+esc(t('type_'+x.type))+'</span><p>'+esc(x.idea)+'</p><button class="btn btn-sm btn-primary" data-idea="'+esc(x.idea)+'" data-type="'+x.type+'">'+t('use_idea')+'</button></div>').join('');
+}
+
+/* ================= I18N APPLY ================= */
+function applyI18n(){
+ $$('[data-i18n]').forEach(el=>{el.textContent=t(el.dataset.i18n);});
+ $$('[data-i18n-ph]').forEach(el=>{el.setAttribute('placeholder',t(el.dataset.i18nPh));});
+ const ar=settings.uiLang==='ar';
+ document.documentElement.lang=ar?'ar':'en';
+ document.documentElement.dir=ar?'rtl':'ltr';
+ $('#pageTitle').textContent=t(PAGE_KEYS[state.page]);
+}
+function applySettings(){
+ const h=document.documentElement;
+ h.dataset.theme=settings.theme;
+ h.dataset.font=settings.fontSize;
+ applyI18n();
+ $('#themeQuick').textContent=settings.theme==='dark'?'☀️':'🌙';
+ setVal('#setTheme',settings.theme);setVal('#setUiLang',settings.uiLang);setVal('#setFont',settings.fontSize);
+ setVal('#setProvider',settings.apiProvider);
+ $('#setApiUrl').value=settings.apiUrl;$('#setApiKey').value=settings.apiKey;$('#setModel').value=settings.apiModel;
+ updateApiFields();
+ renderTrend();renderSaved();
+ if(state.currentResult)renderResults(state.currentResult);
+}
+function updateApiFields(){
+ const p=$('#setProvider').value;
+ const off=p==='none';
+ $('#setApiKey').disabled=off;$('#setModel').disabled=off;
+ $('#setApiUrl').disabled=off||p==='openai';
+ if(p==='openai')$('#setApiUrl').value='https://api.openai.com/v1/chat/completions';
+}
+
+
+/* ================= BAKO LOCAL ASSISTANT ================= */
+function assistantAdd(text,who){
+  const box=$('#assistantChat'); if(!box)return;
+  const d=document.createElement('div');
+  d.className='assistant-msg '+(who==='user'?'user':'bot');
+  d.textContent=text;
+  box.appendChild(d);
+  box.scrollTop=box.scrollHeight;
+}
+function assistantReply(q){
+  const x=q.trim(), low=x.toLowerCase(), lang=settings.uiLang==='ar'?'ar':'en';
+  const ideas=IDEA_POOL[lang];
+  if(/فكرة|idea|ideas/.test(low)){
+    const type=$('#selType')?.value||'gaming', pool=ideas[type]||ideas.other;
+    return lang==='ar'
+      ? '💡 فكرة مناسبة:\\n'+pick(pool)+'\\n\\n🔥 Hook:\\n"توقف! هناك شيء مهم يجب أن تعرفه قبل أن تبدأ..."'
+      : '💡 A good idea:\\n'+pick(pool)+'\\n\\n🔥 Hook:\\n"Stop scrolling! There is one thing you need to know first..."';
+  }
+  if(/عنوان|title|titles/.test(low)){
+    const idea=$('#ideaInput')?.value.trim()||'فيديو جديد';
+    const r=generateContent({idea,platform:'youtube',type:detectType(idea),lang,tone:'energetic',length:'short'});
+    return (lang==='ar'?'🔥 3 عناوين قوية:\\n':'🔥 3 strong titles:\\n')+r.titles.slice(0,3).join('\\n');
+  }
+  if(/thumbnail|صورة|مصغرة/.test(low)){
+    const idea=$('#ideaInput')?.value.trim()||'فيديو جديد';
+    const r=generateContent({idea,platform:'youtube',type:detectType(idea),lang,tone:'energetic',length:'short'});
+    return (lang==='ar'?'🖼️ أفضل فكرة Thumbnail:\\n':'🖼️ Best thumbnail concept:\\n')+thumbToText(r.thumbs[0]);
+  }
+  if(/hook|افتتاح|مقدمة/.test(low)){
+    const idea=$('#ideaInput')?.value.trim()||'فيديو جديد';
+    const r=generateContent({idea,platform:'youtube',type:detectType(idea),lang,tone:'energetic',length:'short'});
+    return '🔥 '+r.script.hook;
+  }
+  if(/هاشت|hashtag|seo|كلمات/.test(low)){
+    const idea=$('#ideaInput')?.value.trim()||'فيديو جديد';
+    const r=generateContent({idea,platform:'youtube',type:detectType(idea),lang,tone:'professional',length:'short'});
+    return (lang==='ar'?'#️⃣ هاشتاغات:\\n':'#️⃣ Hashtags:\\n')+r.hashtags.join(' ')+'\\n\\n🔎 '+r.keywords.join(', ');
+  }
+  if(/تحسين|improve|قوي|better|نصيحة|tip/.test(low)){
+    return lang==='ar'
+      ? '🚀 لتحسين الفيديو: Hook قوي في أول 3 ثوانٍ، بدون مقدمة طويلة، عنوان واضح، Thumbnail بعنصر رئيسي واحد ونص قصير، ونهاية بسؤال يدفع للتعليق.'
+      : '🚀 Improve the video: use a strong hook in the first 3 seconds, remove long intros, keep the title clear, use one main thumbnail subject with short text, and end with a question that invites comments.';
+  }
+  return lang==='ar'
+    ? '🤖 أستطيع مساعدتك في العناوين، Hooks، السكربت، Thumbnail، الهاشتاغات، SEO وأفكار الفيديو. جرّب: "أعطني 5 عناوين".'
+    : '🤖 I can help with titles, hooks, scripts, thumbnails, hashtags, SEO and video ideas. Try: "Give me 5 titles".';
+}
+function initAssistant(){
+  const q=$('#assistantQuick');
+  if(q){
+    const quick=[['🎯 5 عناوين','عنوان'],['🔥 Hook قوي','Hook'],['🖼️ Thumbnail','Thumbnail'],['💡 فكرة فيديو','فكرة']];
+    q.innerHTML=quick.map(a=>'<button class="chip" data-assistant="'+esc(a[1])+'">'+a[0]+'</button>').join('');
+    q.addEventListener('click',e=>{
+      const b=e.target.closest('[data-assistant]'); if(!b)return;
+      $('#assistantInput').value=b.dataset.assistant; $('#assistantSend').click();
+    });
+  }
+  $('#assistantSend')?.addEventListener('click',()=>{
+    const input=$('#assistantInput'), text=input.value.trim();
+    if(!text)return;
+    assistantAdd(text,'user'); input.value='';
+    setTimeout(()=>assistantAdd(assistantReply(text),'bot'),90);
+  });
+  $('#assistantInput')?.addEventListener('keydown',e=>{
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('#assistantSend').click();}
+  });
+  $('#assistantClear')?.addEventListener('click',()=>{
+    $('#assistantChat').innerHTML='<div class="assistant-msg bot">'+esc(t('assistant_welcome'))+'</div>';
+  });
+}
+
+/* ================= INIT & EVENT LISTENERS ================= */
+function init(){
+ /* navigation */
+ $$('.nav-item').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.page)));
+ $$('.fcard').forEach(c=>c.addEventListener('click',()=>navigate(c.dataset.nav)));
+ $('#homeCta').addEventListener('click',()=>{navigate('create');$('#ideaInput').focus();});
+ $('#menuBtn').addEventListener('click',openSidebar);
+ $('#backdrop').addEventListener('click',closeSidebar);
+ $('#themeQuick').addEventListener('click',()=>{settings.theme=settings.theme==='dark'?'light':'dark';saveJSON('bako_settings',settings);applySettings();});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeSidebar();}if((e.ctrlKey||e.metaKey)&&e.key==='Enter'&&state.page==='create')handleGenerate(null);});
+
+ /* create page */
+ $('#generateBtn').addEventListener('click',()=>handleGenerate(null));
+ $('#btnRegen').addEventListener('click',()=>{handleGenerate(state.lastOpts?Object.assign({},state.lastOpts):null);});
+ $('#btnRandomIdea').addEventListener('click',()=>{
+  const pool=IDEA_POOL[settings.uiLang==='ar'?'ar':'en'];
+  $('#ideaInput').value=pick(pool[$('#selType').value]||pool.other);
+ });
+ $('#btnSaveProject').addEventListener('click',()=>{
+  if(!state.currentResult){toast(t('t_err_empty'),'err');return;}
+  const def=state.currentResult.idea.slice(0,40);
+  openModal({title:t('m_name_title'),
+   bodyHTML:'<label class="lbl">'+t('m_name_label')+'</label><input id="projNameInput" class="input" maxlength="60" value="'+esc(def)+'">',
+   confirmText:t('m_save'),
+   onConfirm:()=>{
+    const inp=$('#projNameInput');
+    const name=(inp&&inp.value.trim())||def;
+    const list=loadArr('bako_projects');
+    list.unshift({id:uid(),name:name,date:new Date().toISOString(),idea:state.currentResult.idea,pinned:false,favorite:false,opts:state.currentResult.opts,result:state.currentResult});
+    saveArr('bako_projects',list);
+    renderSaved();
+    toast('💾 '+t('t_saved'));
+   }});
+ });
+ $('#btnExport').addEventListener('click',()=>{
+  if(!state.currentResult)return;
+  const blob=new Blob(['\ufeff'+allText(state.currentResult)],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='BAKO_'+(state.currentResult.idea.slice(0,20).replace(/\s+/g,'_').replace(/[\\/:*?"<>|]/g,'')||'content')+'.txt';
+  document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);
+  toast('📄 '+t('t_exported'));
+ });
+ $('#btnCopyAll').addEventListener('click',e=>{
+  if(!state.currentResult)return;
+  copyText(allText(state.currentResult),e.currentTarget);
+ });
+ attachCopyHandler($('#resultsGrid'),()=>state.currentResult);
+
+ /* ideas page */
+ $('#btnGenIdea').addEventListener('click',()=>{
+  const pool=IDEA_POOL[settings.uiLang==='ar'?'ar':'en'];
+  const ty=$('#ideaType').value;
+  const idea=pick(pool[ty]||pool.other);
+  const out=$('#ideaOutput');
+  out.classList.remove('hidden');
+  out.innerHTML='<div class="gen-idea"><span class="badge">'+esc(t('type_'+ty))+'</span><p class="gen-idea-txt">💡 '+esc(idea)+'</p><div><button class="btn btn-primary" data-idea="'+esc(idea)+'" data-type="'+ty+'">'+t('use_idea')+'</button></div></div>';
+ });
+ $('#ideaOutput').addEventListener('click',e=>{const b=e.target.closest('[data-idea]');if(b)useIdea(b.dataset.idea,b.dataset.type);});
+ $('#homeTrend').addEventListener('click',e=>{const b=e.target.closest('[data-idea]');if(b)useIdea(b.dataset.idea,b.dataset.type);});
+ $('#trendList').addEventListener('click',e=>{const b=e.target.closest('[data-idea]');if(b)useIdea(b.dataset.idea,b.dataset.type);});
+
+ /* thumbnail quick tool */
+ $('#btnGenThumb').addEventListener('click',()=>{
+  const idea=$('#thumbIdea').value.trim();
+  if(!idea){toast(t('t_err_empty'),'err');return;}
+  const lang=settings.uiLang==='ar'?'ar':'en';
+  const res=generateContent({idea:idea,platform:'youtube',type:detectType(idea),lang:lang,tone:'energetic',length:'medium'});
+  state.tempRes.thumb=res;
+  const out=$('#thumbOutput');
+  out.setAttribute('dir',lang==='ar'?'rtl':'ltr');
+  out.innerHTML=rcard(t('c_thumb'),thumbsBlock(res),null,0);
+  toast(t('t_done'));
+ });
+ attachCopyHandler($('#thumbOutput'),()=>state.tempRes.thumb);
+
+ /* voice quick tool */
+ $('#btnGenVoice').addEventListener('click',()=>{
+  const idea=$('#voiceIdea').value.trim();
+  if(!idea){toast(t('t_err_empty'),'err');return;}
+  const lang=settings.uiLang==='ar'?'ar':'en';
+  const res=generateContent({idea:idea,platform:'youtube',type:detectType(idea),lang:lang,tone:'professional',length:'medium'});
+  state.tempRes.voice=res;
+  const out=$('#voiceOutput');
+  out.setAttribute('dir',lang==='ar'?'rtl':'ltr');
+  out.innerHTML=rcard(t('c_voice'),'<pre class="prewrap">'+esc(res.voice)+'</pre>',cbtn('voice'),0);
+  toast(t('t_done'));
+ });
+ attachCopyHandler($('#voiceOutput'),()=>state.tempRes.voice);
+
+ /* saved page */
+ $('#savedList').addEventListener('click',e=>{
+  const b=e.target.closest('[data-sact]');if(!b)return;
+  const id=b.dataset.id;
+  const list=loadArr('bako_projects');
+  const p=list.find(x=>x.id===id);if(!p)return;
+  const act=b.dataset.sact;
+  if(act==='open'){
+   $('#ideaInput').value=p.idea;
+   if(p.opts){setVal('#selPlatform',p.opts.platform);setVal('#selType',p.opts.type);setVal('#selLang',p.opts.lang);setVal('#selTone',p.opts.tone);setVal('#selLen',p.opts.length);}
+   state.currentResult=p.result;state.lastOpts=p.opts;
+   renderResults(p.result);
+   $('#resultsArea').classList.remove('hidden');
+   navigate('create');
+   toast('📂 '+t('t_opened'));
+  }else if(act==='pin'){p.pinned=!p.pinned;saveArr('bako_projects',list);renderSaved();}
+  else if(act==='fav'){p.favorite=!p.favorite;saveArr('bako_projects',list);renderSaved();}
+  else if(act==='del'){
+   openModal({title:t('m_del_title'),bodyHTML:'<p>'+esc(t('m_del_msg'))+'</p>',danger:true,
+    onConfirm:()=>{saveArr('bako_projects',loadArr('bako_projects').filter(x=>x.id!==id));renderSaved();toast('🗑️ '+t('t_deleted'));}});
+  }
+ });
+
+ /* settings page */
+ $('#setProvider').addEventListener('change',updateApiFields);
+ $('#btnSaveSettings').addEventListener('click',()=>{
+  settings.theme=$('#setTheme').value;
+  settings.uiLang=$('#setUiLang').value;
+  settings.fontSize=$('#setFont').value;
+  settings.apiProvider=$('#setProvider').value;
+  settings.apiUrl=$('#setApiUrl').value.trim();
+  settings.apiKey=$('#setApiKey').value.trim();
+  settings.apiModel=$('#setModel').value.trim()||'gpt-4o-mini';
+  saveJSON('bako_settings',settings);
+  applySettings();
+  toast('💾 '+t('s_saved_toast'));
+ });
+ $('#btnResetSettings').addEventListener('click',()=>{
+  openModal({title:t('s_reset'),bodyHTML:'<p>'+esc(t('s_reset_msg'))+'</p>',danger:true,
+   onConfirm:()=>{settings=Object.assign({},DEF_SETTINGS);saveJSON('bako_settings',settings);applySettings();toast('↩️ '+t('s_reset_toast'));}});
+ });
+
+ /* modal */
+ $('#modalCancel').addEventListener('click',closeModal);
+ $('#modalOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
+ $('#modalConfirm').addEventListener('click',()=>{
+  const fn=modalConfirmFn;modalConfirmFn=null;
+  $('#modalOverlay').classList.add('hidden');
+  if(fn)fn();
+ });
+
+ applySettings();
+ navigate('home');
+}
+init();
+</script>
+</body>
+</html>
